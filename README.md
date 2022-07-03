@@ -1,24 +1,52 @@
-# README
+# サイト名
+BG録
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+ボードゲームの個人記録と、遊びたいボードゲームでのマッチングサイト
 
-Things you may want to cover:
+### サイトテーマ
+ボードゲームをより楽しく遊び、より多くのボードゲームを遊ぶための記録コミュニティサイト
 
-* Ruby version
+### テーマを選んだ理由
+■記録したい
+ボードゲームはとても多種多様です。遊びたいゲームは山ほどあります。
+そうすると・・・
+「あのゲーム、最後にいつ遊んだっけ？」
+と言ったことがよく起きます。これの記録があれば、
+「自分はこういうプレイスタイルが好きなのか」とボドゲ自己分析に使ったり、
+「これ久しぶりに遊ばない？」と言った誘い文句に使えます。
 
-* System dependencies
+■遊びたいボドゲでマッチングしたい
+社会人になると、ボドゲ仲間はちりじりになりがちです。
+そうすると・・・
+「このゲーム遊びたいけど、人が・・・」
+「ゲーム買ったは良いけど、ルールだけ読むか・・・」
+と言うことがよく起きます。これがあれば、
+「買ったから遊びたい、遊びたいリストに投稿してみよう」と待ったり、
+「このゲーム遊びたい、誰か同じ思いの人はいないか」と探したりできます。
 
-* Configuration
+### ターゲットユーザ
+ボードゲームを趣味とする社会人など
 
-* Database creation
+### 主な利用シーン
+■記録機能
+ボドゲを遊んだ後、プレイ人数、ゲームタイプ、点数などを入力。
+BGGのAPIを利用し、BGGデータベースのデータを利用可能。
+※BGGアカウント連携不可 2022/7/3
 
-* Database initialization
+■マッチング
+ボドゲを遊びたいとき、遊びたいボドゲの検索、投稿。
 
-* How to run the test suite
+## 設計書
+<...>
 
-* Services (job queues, cache servers, search engines, etc.)
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Deployment instructions
-
-* ...
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
