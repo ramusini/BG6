@@ -13,4 +13,9 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  # ユーザー用
+  scope module: :public do
+    root to: "homes#top"
+  end
+
 end
