@@ -5,10 +5,22 @@
     </th>
   </tr>
   <% @results.each do |result| %>
-  <tr>
-    <td>
-      <%= result %>
-    </td>
-  </tr>
+    <tr>
+      <% if params[:bg_id].blank? %>
+        <td>
+          id: <%= result[:id] %>
+        </td>
+        <td>
+          value: <%= result[:value] %>
+        </td>
+      <% else %>
+        <td>
+          <%= result %>
+        </td>
+      <% end %>
+    </tr>
   <% end %>
+
 </table>
+
+<%#= @results %>
