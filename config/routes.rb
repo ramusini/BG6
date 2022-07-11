@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   scope module: :public do
     resources :boardgames
     resources :records
-    get "search" => "searches#search"
+    resources :searches
     root to: "homes#top"
   end
 

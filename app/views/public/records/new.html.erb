@@ -1,0 +1,5 @@
+<h3>新規記録作成</h3>
+<%= form_with(model: @new_record, url: records_path, local: true) do |f| %>
+  <div><%= f.label :date, "遊んだ日" %></div>
+  <div><%= f.text_field :date, value:Time.now.strftime("%Y年%m月%d日") %></div>
+<% end %>
