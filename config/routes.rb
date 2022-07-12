@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :boardgames
     resources :records
     resources :searches
+    resources :players
     root to: "homes#top"
   end
 
