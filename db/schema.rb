@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_12_064610) do
+ActiveRecord::Schema.define(version: 2022_07_13_071331) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 2022_07_12_064610) do
     t.string "playingtime"
     t.string "rate"
     t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
+    t.integer "bg_id", null: false
+  end
+
+  create_table "bucket_lists", force: :cascade do |t|
+    t.string "bg_title", null: false
+    t.string "minplayer"
+    t.string "maxplayer"
+    t.string "playingtime"
+    t.string "rate"
+    t.string "image"
+    t.text "memo"
+    t.integer "user_id", null: false
+    t.integer "bg_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -55,8 +71,8 @@ ActiveRecord::Schema.define(version: 2022_07_12_064610) do
   end
 
   create_table "scores", force: :cascade do |t|
-    t.string "score"
-    t.integer "player_id"
+    t.string "score", null: false
+    t.integer "player_id", null: false
     t.integer "record_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

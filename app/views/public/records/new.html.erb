@@ -1,5 +1,52 @@
 <h3>新規記録作成</h3>
-<%= form_with(model: @new_record, url: records_path, local: true) do |f| %>
-  <div><%= f.label :date, "遊んだ日" %></div>
-  <div><%= f.text_field :date, value:Time.now.strftime("%Y年%m月%d日") %></div>
+
+<table class="table-bordered">
+  <tr>
+    <td>
+      <img src="<%= @image %>" width="100"/>
+    </td>
+    <td>
+      id: <%= @bg_id %></br>
+      タイトル: <%= @title %></br>
+      最小人数: <%= @minplayer %></br>
+      最大人数: <%= @maxplayer %></br>
+      時間: <%= @playingtime %></br>
+    </td>
+  </tr>
+</table>
+
+<%= form_with url: records_path, local: true do |f| %>
+  <!--APIから取得した『最大人数』の数だけプレイヤーフォームを生成-->
+  <% @maxplayer.to_i.times do |num| %>
+    <div class="form-group">
+      <%= f.label :player_name, "プレイヤー#{num + 1}" %>
+      <%= f.collection_select :player_name, @players, :player_name, :player_name, prompt: "プレイヤー選択" %>
+      <%= f.label :score, "スコア" %>
+      <%= f.text_field :score %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :date, "遊んだ日" %>
+    <%= f.text_field :date, value:Time.now.strftime("%Y年%m月%d日") %>
+  </div>
+  <div class="form-group">
+    <%= f.label :playingtime, "プレイ時間" %>
+    <%= f.text_field :playingtime, value: @playingtime %>
+  </div>
+  <div class="form-group">
+    <%= f.label :memo, "メモ" %>
+    <%= f.text_area :memo %>
+  </div>
+  
+  <!--遊んだボドゲに保存する情報-->
+  <%= f.hidden_field :bg_id, :value => @bg_id %>
+  <%= f.hidden_field :image, :value => @image %>
+  <%= f.hidden_field :title, :value => @title %>
+  <%= f.hidden_field :maxplayer, :value => @maxplayer %>
+  <%= f.hidden_field :minplayer, :value => @minplayer %>
+
+  <div class="form-group">
+    <%= f.submit "記録保存", class: "btn btn-primary" %>
+  </div>
 <% end %>
