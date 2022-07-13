@@ -1,0 +1,2 @@
+class BucketList < ApplicationRecord
+end
