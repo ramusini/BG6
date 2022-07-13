@@ -15,11 +15,11 @@
   </tr>
 </table>
 
-<%= form_with url: boardgames_path, local: true do |f| %>
+<%= form_with url: bucket_lists_path, local: true do |f| %>
   <!--ボドゲに保存する情報-->
   <%= f.hidden_field :bg_id, :value => @bg_id %>
   <%= f.hidden_field :image, :value => @image %>
-  <%= f.hidden_field :title, :value => @title %>
+  <%= f.hidden_field :bucket_title, :value => @title %>
   <%= f.hidden_field :maxplayer, :value => @maxplayer %>
   <%= f.hidden_field :minplayer, :value => @minplayer %>
   <%= f.hidden_field :playingtime, :value => @playingtime %>
@@ -30,6 +30,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "記録保存", class: "btn btn-primary" %>
+    <%= f.submit "リストに追加", class: "btn btn-primary" %>
   </div>
 <% end %>

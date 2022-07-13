@@ -1,0 +1,23 @@
+<h3>遊びたいボドゲリスト一覧</h3>
+<table class="table-bordered">
+  <% @bucket_lists.each do |bucket_list| %>
+    <tr>
+      <td>
+        <img src="<%= bucket_list.image %>" width="100"/>
+      </td>
+      <td>
+        タイトル: <%= bucket_list.bucket_title %></br>
+        最小人数: <%= bucket_list.minplayer %></br>
+        最大人数: <%= bucket_list.maxplayer %></br>
+        時間: <%= bucket_list.playingtime %></br>
+      </td>
+      <td>
+        <%= bucket_list.memo %>
+      </td>
+      <td>
+        <%= link_to "削除", bucket_list_path(bucket_list.id), method: :delete, class: "btn btn-danger" %>
+        <%= link_to "編集", edit_bucket_list_path(bucket_list.id), class: "btn btn-primary" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
