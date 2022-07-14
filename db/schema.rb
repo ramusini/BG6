@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_071331) do
+ActiveRecord::Schema.define(version: 2022_07_13_074933) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_07_13_071331) do
   end
 
   create_table "board_games", force: :cascade do |t|
-    t.string "bg_title", null: false
+    t.string "played_title", null: false
     t.string "minplayer"
     t.string "maxplayer"
     t.string "playingtime"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2022_07_13_071331) do
   end
 
   create_table "bucket_lists", force: :cascade do |t|
-    t.string "bg_title", null: false
+    t.string "bucket_title", null: false
     t.string "minplayer"
     t.string "maxplayer"
     t.string "playingtime"

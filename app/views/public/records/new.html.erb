@@ -19,10 +19,10 @@
   <!--APIから取得した『最大人数』の数だけプレイヤーフォームを生成-->
   <% @maxplayer.to_i.times do |num| %>
     <div class="form-group">
-      <%= f.label :player_name, "プレイヤー#{num + 1}" %>
-      <%= f.collection_select :player_name, @players, :player_name, :player_name, prompt: "プレイヤー選択" %>
-      <%= f.label :score, "スコア" %>
-      <%= f.text_field :score %>
+      <%= f.label :player_date, "プレイヤー#{num + 1}" %>
+      <%= f.collection_select :player_date, @players, :player_name, :player_name, prompt: "プレイヤー選択" %>
+      <%= f.label :player_date, "スコア" %>
+      <%= f.text_field :player_date %>
     </div>
   <% end %>
 
@@ -38,13 +38,15 @@
     <%= f.label :memo, "メモ" %>
     <%= f.text_area :memo %>
   </div>
-  
+
   <!--遊んだボドゲに保存する情報-->
   <%= f.hidden_field :bg_id, :value => @bg_id %>
   <%= f.hidden_field :image, :value => @image %>
   <%= f.hidden_field :title, :value => @title %>
   <%= f.hidden_field :maxplayer, :value => @maxplayer %>
   <%= f.hidden_field :minplayer, :value => @minplayer %>
+
+
 
   <div class="form-group">
     <%= f.submit "記録保存", class: "btn btn-primary" %>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :records
     resources :searches
     resources :players
+    resources :bucket_lists
     root to: "homes#top"
   end
 

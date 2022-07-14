@@ -24,7 +24,7 @@
   <% end %>
 </div>
 <div class="add_bucket_list">
-  <%= form_with url: new_boardgame_path, local: true, method: :get do |f| %>
+  <%= form_with url: new_bucket_list_path, local: true, method: :get do |f| %>
     <%= f.hidden_field :bg_id, :value => @result[0][:id] %>
     <%= f.hidden_field :image, :value => @result[0][:image][0] %>
     <%= f.hidden_field :title, :value => @result[0][:title] %>
