@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   # ユーザー用
   scope module: :public do
+    resources :users
     resources :boardgames
     resources :records
     resources :searches

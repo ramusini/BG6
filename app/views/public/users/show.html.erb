@@ -1,0 +1,22 @@
+<h3>ユーザー詳細</h3>
+<%= image_tag @user.get_profile_image(100,100) %>
+<%= @user.name %>
+<%= link_to "編集", edit_user_path(@user) %>
+<table class="table-bordered">
+  <% @bucket_lists.each do |bucket_list| %>
+    <tr>
+      <td>
+        <img src="<%= bucket_list.image %>" width="100"/>
+      </td>
+      <td>
+        タイトル: <%= bucket_list.bucket_title %></br>
+        最小人数: <%= bucket_list.minplayer %></br>
+        最大人数: <%= bucket_list.maxplayer %></br>
+        時間: <%= bucket_list.playingtime %></br>
+      </td>
+      <td>
+        <%= bucket_list.memo %>
+      </td>
+    </tr>
+  <% end %>
+</table>
