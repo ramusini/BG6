@@ -1,6 +1,7 @@
 class Public::PlayersController < ApplicationController
 
   def index
+    @players = Player.where(user_id: current_user.id)
   end
 
   def show
@@ -12,15 +13,14 @@ class Public::PlayersController < ApplicationController
 
   def create
     @new_player = Player.new(player_params)
-    @new_player.user_id = current_user.id
     @new_player.save
-    redirect_to new_record_path
+    redirect_to "/"
   end
 
   private
 
   def player_params
-    params.require(:player).permit(:player_name)
+    params.require(:player).permit(:player_name).merge(user_id: current_user.id)
   end
 
 end

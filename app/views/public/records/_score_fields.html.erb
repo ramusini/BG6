@@ -1,0 +1,17 @@
+<div class="nested-fields">
+  <table>
+    <tr>
+      <td class="td-fixed-select">
+        <%= f.label :player_id, "プレイヤー" %>
+        <%= f.collection_select :player_id, Player.where(user_id: current_user.id), :id, :player_name, {prompt: '---'}, {class: 'select-box'} %>
+      </td>
+      <td class="td-fixed-score">
+        <%= f.label :player_date, "スコア" %>
+        <%= f.text_field :score %>
+      </td>
+      <td>
+        <%= link_to_remove_association "削除", f %>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,6 +1,10 @@
 class Public::RecordsController < ApplicationController
 
   def new
+    @new_record = Record.new
+    @new_score = @new_record.scores.build
+
+    # BoardGameに保存する情報
     @bg_id = params[:bg_id]
     @image = params[:image]
     @title = params[:title]
@@ -21,14 +25,15 @@ class Public::RecordsController < ApplicationController
     # else
     # end
 
-    # # 今回の遊んだ記録を保存
-    # @new_record = Record.new(record_params)
+    # 今回の遊んだ記録を保存
+    @new_record = Record.new(record_params)
     # played_bg = BoardGame.where(bg_id: params[:bg_id]) # 受信した:bg_idは、上で保存するとともにここでid検索に利用。
-    # @new_record.board_game_id = played_bg.id
-    # @new_record.user_id = current_user.id　#paramsでmergeメソッド使えばいけるか？
-    # @new_record.save
-
-    # # 今回のスコアを保存
+    # @new_record.board_game_id = played_bg.id #mergeでできるか確認。できたら削除
+    if @new_record.save
+      redirect_to records_path
+    else
+      render :new
+    end
 
   end
 
@@ -41,21 +46,21 @@ class Public::RecordsController < ApplicationController
   private
 
   def boardgame_params
-    params.require(:board_game).permit(:bg_id, 
-                                      :image, 
-                                      :title, 
-                                      :minplayer, 
-                                      :maxplayer, 
+    params.require(:board_game).permit(:bg_id,
+                                      :image,
+                                      :title,
+                                      :minplayer,
+                                      :maxplayer,
                                       :playingtime
-                                      )
+                                      ).merge(user_id: current_user.id)
   end
 
   def record_params
-    params.require(:record).permit(:date, 
-                                  :playingtime, 
+    params.require(:record).permit(:date,
+                                  :playingtime,
                                   :memo,
-                                  [ordered_products_attributes: [:record_id, :player_id, :score]]
-                                  )
+                                  scores_attributes: [:id, :record_id, :player_id, :score, :_destroy] # :idはなぜか必要らしい。削除して試そう。:_destroyは増やした列を削除するのに利用？
+                                  ).merge(user_id: current_user.id, board_game_id: params[:bg_id])
   end
 
 end

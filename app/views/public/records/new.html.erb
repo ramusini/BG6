@@ -15,16 +15,20 @@
   </tr>
 </table>
 
-<%= form_with url: records_path, local: true do |f| %>
-  <!--APIから取得した『最大人数』の数だけプレイヤーフォームを生成-->
-  <% @maxplayer.to_i.times do |num| %>
-    <div class="form-group">
-      <%= f.label :player_date, "プレイヤー#{num + 1}" %>
-      <%= f.collection_select :player_date, @players, :player_name, :player_name, prompt: "プレイヤー選択" %>
-      <%= f.label :player_date, "スコア" %>
-      <%= f.text_field :player_date %>
-    </div>
-  <% end %>
+<%= form_with model: @record, class: "record-post-main", local: true do |f| %>
+  <div>
+    <%= link_to_add_association "追加", f, :scores %>
+  </div>
+
+  <!--scoreとプレイヤーのフォームの部分テンプレート-->
+  <div>
+    <%= f.fields_for :scores do |score| %>
+      <%= render "score_fields", f: score %>
+    <% end %>
+  </div>
+
+  <!--フォームが追加されるところ-->
+  <div id="detail-association-insertion-point"></div>
 
   <div class="form-group">
     <%= f.label :date, "遊んだ日" %>
@@ -45,8 +49,6 @@
   <%= f.hidden_field :title, :value => @title %>
   <%= f.hidden_field :maxplayer, :value => @maxplayer %>
   <%= f.hidden_field :minplayer, :value => @minplayer %>
-
-
 
   <div class="form-group">
     <%= f.submit "記録保存", class: "btn btn-primary" %>
