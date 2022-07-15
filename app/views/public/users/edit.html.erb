@@ -1,0 +1,14 @@
+<h3>ユーザー情報編集</h3>
+<%= form_with model:@user, local:true do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control name" %>
+      </div>
+     <div class="form-group">
+        <%= f.label :image %>
+        <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-secondary' %>
+      </div>
+<% end %>

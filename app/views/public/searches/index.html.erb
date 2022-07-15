@@ -1,0 +1,16 @@
+<table class="table">
+  <% @results.each do |result| %>
+    <tr>
+      <td><%= result[:id] %></td>
+      <td><%= result[:value] %></td>
+      <td>
+        <div class="select_bg">
+          <%= form_with url: search_path(result[:id]), local: true, method: :get do |f| %>
+            <%= f.hidden_field :bg_id, :value => result[:id] %>
+            <%= f.submit "詳細情報を見る", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

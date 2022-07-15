@@ -1,0 +1,26 @@
+遊んだボドゲ一覧
+<table class="table">
+  <tr>
+    <th></th>
+    <th>タイトル</th>
+    <th>最低プレイ人数</th>
+    <th>最大プレイ人数</th>
+    <th>時間</th>
+    <th>評価</th>
+  </tr>
+  <% @playd_bgs.each do |bg| %>
+  <tr>
+    <td>
+      画像を表示したい
+      <!--img src="https://cf.geekdo-images.com/JDVksMwfcqoem1k_xtZrOA__original/img/5vNHZiTEhK4aRDuGXv5KImp9cmQ=/0x0/filters:format(jpeg)/pic2007286.jpg" class="img-fluid"></img-->
+    </td>
+    <td><%= bg.bg_title %></td>
+    <td><%= bg.minplayer %></td>
+    <td><%= bg.maxplayer %></td>
+    <td><%= bg.playingtime %></td>
+    <td><%= bg.rate %></td>
+  </tr>
+  <% end %>
+</table>
+
+

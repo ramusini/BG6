@@ -1,0 +1,8 @@
+<h3>ユーザーリスト</h3>
+<table class="table">
+  <% @users.each do |user| %>
+    <%= link_to user_path(current_user) do %>
+      <%= user.name %>
+    <% end %>
+  <% end %>
+</table>
