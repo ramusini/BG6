@@ -1,8 +1,15 @@
 <h3>ユーザーリスト</h3>
-<table class="table">
+<table class="table-bordered">
   <% @users.each do |user| %>
-    <%= link_to user_path(current_user) do %>
-      <%= user.name %>
-    <% end %>
+    <tr>
+      <td>
+        <% if user != current_user %>
+          <%= link_to user_path(user) do %>
+            <%= image_tag user.get_profile_image(100,100) %>
+            <%= user.name %>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
 </table>

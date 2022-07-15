@@ -14,15 +14,20 @@ class Public::BucketListsController < ApplicationController
     @new_bucket_list.user_id = current_user.id
     @new_bucket_list.save
 
-    @bucket_lists = BucketList.where(user_id: current_user.id)
-    render :index
+    redirect_to bucket_lists_path
   end
 
   def index
     @bucket_lists = BucketList.where(user_id: current_user.id)
+    @user = User.find(current_user.id)
+    favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)
+    @favorite_bucket_lists = BucketList.find(favorites)
   end
 
   def show
+    @bucket_list = BucketList.find(params[:id])
+    @new_comment = Comment.new
+    
   end
 
   def destroy
