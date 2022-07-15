@@ -20,7 +20,10 @@ Rails.application.routes.draw do
     resources :records
     resources :searches
     resources :players
-    resources :bucket_lists
+    resources :bucket_lists do
+      resource :favorites, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy]
+    end
     root to: "homes#top"
   end
 

@@ -7,6 +7,9 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @bucket_lists = @user.bucket_lists
+    # いいねリスト表示用
+    favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)
+    @favorite_bucket_lists = BucketList.find(favorites)
   end
 
   def edit
@@ -16,10 +19,17 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(@user.id), notice: "更新に成功"
+      redirect_to user_path(@user.id)
     else
       render :edit
     end
+  end
+
+  # いいねした投稿を一覧表示
+  def favorites
+    @user = User.find(params[:id])
+    favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)
+    @favorite_bucket_lists = BucketList.find(favorites)
   end
 
   private
