@@ -11,6 +11,7 @@ class Public::SearchesController < ApplicationController
   end
 
   def show
+    # BGGのAPIからデータを取得する
     bgg = BggApi.new
     res = bgg.thing({:id => params[:bg_id]})
     @result = res["item"].map{|item| {id: item["id"],

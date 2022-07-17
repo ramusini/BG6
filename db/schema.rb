@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_032018) do
+ActiveRecord::Schema.define(version: 2022_07_17_021839) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_032018) do
   end
 
   create_table "board_games", force: :cascade do |t|
-    t.string "played_title", null: false
+    t.string "played_title"
     t.string "minplayer"
     t.string "maxplayer"
     t.string "playingtime"
@@ -103,11 +103,9 @@ ActiveRecord::Schema.define(version: 2022_07_15_032018) do
 
   create_table "records", force: :cascade do |t|
     t.string "date", null: false
-    t.string "score", null: false
     t.string "playing_time", null: false
     t.text "memo"
     t.integer "user_id", null: false
-    t.integer "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "board_game_id", null: false
