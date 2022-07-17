@@ -1,45 +1,78 @@
-<h3>
-  <%= render 'user_info', user: @user %> の詳細
-  <% if @user == current_user %>
-    <%= link_to "編集", edit_user_path(@user) %>
-  <% end %>
-</h3>
-<h3>遊びたいボドゲリスト</h3>
-<table class="table-bordered">
-  <% @bucket_lists.each do |bucket_list| %>
-    <tr>
-      <!--遊びたいボドゲ情報-->
-      <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-      <!--いいねボタン-->
-      <td id="favorite_buttons_<%= bucket_list.id %>">
-        <%= render 'public/favorites/favorite', bucket_list: bucket_list %>
-      </td>
-      <td>
-        <%= link_to bucket_list_path(bucket_list) do %>
-          コメント:<%= bucket_list.comments.count %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<div class='container mt-5 mb-5'>
+  <div class='row'>
+    <div class='col-md-4'>
+      <h3>ユーザー詳細</h3>
+      <table class="table">
+        <tr>
+          <td>
+            <h3>
+              <%= render 'user_info', user: @user %>
+              <% if @user.name != "guestuser" %>
+                <% if @user == current_user %>
+                  <%= link_to "編集", edit_user_path(@user) %>
+                <% end %>
+              <% end %>
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <% if @user.memo.try(:include?, "\n") %>
+              <%= safe_join(@user.memo.split("\n"), tag(:br)) %>
+            <% else %>
+              <%= @user.memo %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>地域：<%= @user.prefecture %> <%= @user.city %></td>
+        </tr>
+      </table>
+    </div>
 
-<h3>いいね</h3>
-<table class="table-bordered">
-  <% @favorite_bucket_lists.each do |f_bucket_list|%>
-    <tr>
-      <!--遊びたいボドゲ情報-->
-      <%= render "public/bucket_lists/bucket_data", data: f_bucket_list %>
-      <!--いいねボタン-->
-      <td id="favorite_buttons_<%= f_bucket_list.id %>">
-        <%= render 'public/favorites/favorite', bucket_list: f_bucket_list %>
-      </td>
-      <!--ユーザー情報-->
-      <td>
-        <%= link_to user_path(f_bucket_list.user) do %>
-        <%= image_tag f_bucket_list.user.get_profile_image(100,100) %>
-        <%= f_bucket_list.user.name %>
+    <div class='col-md-8'>
+      <h3>遊びたいリスト</h3>
+      <table class="table-bordered col-md-12">
+        <% @bucket_lists.each do |bucket_list| %>
+          <tr>
+            <!--遊びたいボドゲ情報-->
+            <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
+            <!--いいねボタン&コメント-->
+            <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="15%">
+              <% if @user != current_user %>
+                <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
+              <% end %>
+              <%= link_to bucket_list_path(bucket_list) do %>
+                コメント:<%= bucket_list.comments.count %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+      </table>
+
+      <h3 class="pt-2">いいね</h3>
+      <table class="table-bordered col-md-12">
+        <% @favorite_bucket_lists.each do |f_bucket_list|%>
+          <tr>
+            <!--遊びたいボドゲ情報-->
+            <%= render "public/bucket_lists/bucket_data", data: f_bucket_list %>
+            <!--いいねボタン-->
+            <td id="favorite_buttons_<%= f_bucket_list.id %>" class="text-center" width="15%">
+              <%= render 'public/favorites/favorite', bucket_list: f_bucket_list %></br>
+              <%= link_to bucket_list_path(f_bucket_list) do %>
+                コメント:<%= f_bucket_list.comments.count %>
+              <% end %>
+            </td>
+            <!--ユーザー情報-->
+            <td class="text-center">
+              <%= link_to user_path(f_bucket_list.user, class: "text-center") do %>
+                <%= image_tag f_bucket_list.user.get_profile_image(100,100) %></br>
+                <%= f_bucket_list.user.name %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

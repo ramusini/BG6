@@ -20,4 +20,17 @@ class User < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  def self.guest
+    find_or_create_by!(name: 'guestuser' ,
+                      email: 'guests@example.com',
+                      postal_code: '1231234',
+                      prefecture: 'ボドゲ県',
+                      city: 'ミープル区',
+                      age: '0〜99',
+                      memo: '主に重ゲーを遊んでいます！') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
+
 end

@@ -1,12 +1,11 @@
 <td>
   <img src="<%= data.image %>" width="100"/>
 </td>
-<td>
-  タイトル: <%= data.bucket_title %></br>
-  最小人数: <%= data.minplayer %></br>
-  最大人数: <%= data.maxplayer %></br>
-  時間: <%= data.playingtime %></br>
+<td class="text-center" width="18%">
+  <%= data.bucket_title %></br>
+  <%= data.minplayer %>-<%= data.maxplayer %>人</br>
+  <%= data.playingtime %>min</br>
 </td>
-<td>
-  <%= data.memo %>
+<td width="60%">
+  <%= safe_join(data.memo.split("\n"),tag(:br)) %>
 </td>
