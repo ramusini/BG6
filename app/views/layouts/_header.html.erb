@@ -10,6 +10,7 @@
         </button>
         <!--devise機能リンク-->
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <!--検索機能は左詰め-->
           <ul class="navbar-nav mr-auto">
             <% if user_signed_in? %>
               <li class="nav-item"><%= link_to "相手を探す", users_path, class: 'nav-link active' %></li>
@@ -17,10 +18,15 @@
               <li class="nav-item"><%= link_to "対戦者", players_path, class: 'nav-link active' %></li>
             <% end %>
           </ul>
+          <!--ユーザー情報は右詰め-->
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link active' %></li>
-              <li class="nav-item"><%= image_tag current_user.get_profile_image(40,40) %></li>
+              <li class="nav-item">
+                <%= link_to user_path(current_user) do %>
+                  <%= image_tag current_user.get_profile_image(40,40) %>
+                <% end %>
+              </li>
               <li class="nav-item">
                 <%= link_to user_path(current_user), class: 'nav-link active' do %>
                   <%= current_user.name %>

@@ -3,7 +3,7 @@
   <% @bucket_lists.each do |bucket_list| %>
     <tr>
       <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-      <td>
+      <td class="text-center">
         <%= link_to bucket_list_path(bucket_list) do %>
           コメント:<%= bucket_list.comments.count %>
         <% end %>
@@ -20,7 +20,12 @@
   <% @favorite_bucket_lists.each do |f_bucket_list|%>
     <tr>
       <%= render "public/bucket_lists/bucket_data", data: f_bucket_list %>
-      <td><%= render 'public/users/user_info', user: f_bucket_list.user %></td>
+      <td class="text-center">
+        <%= link_to user_path(f_bucket_list.user, class: "text-center") do %>
+          <%= image_tag f_bucket_list.user.get_profile_image(100,100) %></br>
+          <%= f_bucket_list.user.name %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
