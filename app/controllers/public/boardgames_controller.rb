@@ -1,36 +1,40 @@
 class Public::BoardgamesController < ApplicationController
 
   def index
-    @playd_bgs = BoardGame.where(user_id: current_user.id)
+    @played_bgs = BoardGame.where(user_id: current_user.id)
   end
 
   def show
-    @playd_bg = BoardGame.find(1)
-  end
-  
-  def new
-    @bg_id = params[:bg_id]
-    @image = params[:image]
-    @title = params[:title]
-    @maxplayer = params[:maxplayer]
-    @minplayer = params[:minplayer]
-    @playingtime = params[:playingtime]
+    @played_bg = BoardGame.find(params[:id])
+    @records = Record.where(board_game_id: @played_bg.bg_id)
   end
 
   def create
-    # 未登録の場合、今回遊んだボドゲを保存。
+    # 遊んだボドゲが未登録の場合保存
     if BoardGame.where(bg_id: params[:bg_id]).blank?
       @new_played_bg = BoardGame.new(boardgame_params)
-      @new_played_bg.user_id = current_user.id
       @new_played_bg.save
     else
     end
+    redirect_to new_record_path(bg_id: params[:bg_id])
   end
 
   def edit
   end
 
   def delete
+  end
+
+  private
+
+  def boardgame_params
+    params.permit(:bg_id,
+                  :image,
+                  :played_title,
+                  :minplayer,
+                  :maxplayer,
+                  :playingtime
+                  ).merge(user_id: current_user.id)
   end
 
 end

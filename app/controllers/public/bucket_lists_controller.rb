@@ -27,7 +27,7 @@ class Public::BucketListsController < ApplicationController
   def show
     @bucket_list = BucketList.find(params[:id])
     @new_comment = Comment.new
-    
+
   end
 
   def destroy

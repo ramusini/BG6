@@ -13,10 +13,10 @@
   </tr>
 </table>
 <div class="create_record">
-  <%= form_with url: new_record_path, local: true, method: :get do |f| %>
+  <%= form_with url: boardgames_path, local: true, method: :post do |f| %>
     <%= f.hidden_field :bg_id, :value => @result[0][:id] %>
     <%= f.hidden_field :image, :value => @result[0][:image][0] %>
-    <%= f.hidden_field :title, :value => @result[0][:title] %>
+    <%= f.hidden_field :played_title, :value => @result[0][:title] %>
     <%= f.hidden_field :maxplayer, :value => @result[0][:maxplayer] %>
     <%= f.hidden_field :minplayer, :value => @result[0][:minplayer] %>
     <%= f.hidden_field :playingtime, :value => @result[0][:playingtime] %>
