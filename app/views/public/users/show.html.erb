@@ -17,16 +17,19 @@
         </tr>
         <tr>
           <td>
-            <% if @user.memo.try(:include?, "\n") %>
-              <%= safe_join(@user.memo.split("\n"), tag(:br)) %>
-            <% else %>
-              <%= @user.memo %>
-            <% end %>
+              <%= safe_join(@user.memo.try(:split, "\n"), tag(:br)) %>
           </td>
         </tr>
         <tr>
           <td>地域：<%= @user.prefecture %> <%= @user.city %></td>
         </tr>
+        <% if @user == current_user %>
+          <tr>
+            <td>
+              <%= link_to "対戦者一覧", players_path %>
+            </td>
+          </tr>
+        <% end %>
       </table>
     </div>
 
@@ -43,7 +46,12 @@
                 <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
               <% end %>
               <%= link_to bucket_list_path(bucket_list) do %>
-                コメント:<%= bucket_list.comments.count %>
+                コメント:<%= bucket_list.comments.count %></br>
+              <% end %>
+              <% if @user == current_user %>
+                <%= link_to "編集", edit_bucket_list_path(bucket_list.id) %></br>
+                <div></div></br>
+                <%= link_to "削除", bucket_list_path(bucket_list.id), method: :delete %>
               <% end %>
             </td>
           </tr>
@@ -59,9 +67,6 @@
             <!--いいねボタン-->
             <td id="favorite_buttons_<%= f_bucket_list.id %>" class="text-center" width="15%">
               <%= render 'public/favorites/favorite', bucket_list: f_bucket_list %></br>
-              <%= link_to bucket_list_path(f_bucket_list) do %>
-                コメント:<%= f_bucket_list.comments.count %>
-              <% end %>
             </td>
             <!--ユーザー情報-->
             <td class="text-center">
