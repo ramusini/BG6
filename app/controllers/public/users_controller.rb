@@ -4,6 +4,7 @@ class Public::UsersController < ApplicationController
 
   def index
     @users = User.all
+    @bucket_lists = BucketList.all
   end
 
   def show

@@ -35,17 +35,17 @@
         <tr>
           <th>遊んだ日</th>
           <th>プレイ時間</th>
-          <th>プレイヤー</th>
+          <th>対戦者</th>
         </tr>
         <% @records.each do |record| %>
           <tr>
-            <td><%= record.date %></td>
-            <td><%= record.playing_time %> 分</td>
-            <% record.scores.all.each do |score| %>
-              <td>
-                <%= score.player.player_name %>
-              </td>
-            <% end %>
+            <td width="25%"><%= record.date %></td>
+            <td width="25%"><%= record.playing_time %> 分</td>
+            <td width="50%">
+              <% record.scores.all.each do |score| %>
+                <%= score.player.player_name %><%="　"%>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </table>

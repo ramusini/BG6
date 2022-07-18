@@ -1,15 +1,38 @@
-<h3>ユーザーリスト</h3>
-<table class="table-bordered">
-  <% @users.each do |user| %>
-    <tr>
-      <td>
-        <% if user != current_user %>
-          <%= link_to user_path(user) do %>
-            <%= image_tag user.get_profile_image(100,100) %>
-            <%= user.name %>
+<div class='container mt-5 mb-5'>
+  <div class='row'>
+    <div class='col-md-4'>
+      <h3>ユーザーリスト</h3>
+      <table class="table-bordered">
+        <% @users.each do |user| %>
+          <% if user != current_user %>
+            <tr>
+              <td>
+                <%= link_to user_path(user) do %>
+                  <%= image_tag user.get_profile_image(100,100) %>
+                  <%= user.name %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
         <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+      </table>
+    </div>
+    <div class='col-md-8'>
+      <h3>ゲームリスト</h3>
+      <% @bucket_lists.each do |bucket_list| %>
+        <table class="table-bordered">
+          <% if bucket_list.user_id != current_user.id %>
+            <tr>
+            <!--遊びたいボドゲ情報-->
+            <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
+            <!--いいねボタン-->
+            <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="15%">
+              <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
