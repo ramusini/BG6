@@ -9,6 +9,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @played_bgs = @user.board_games
     @bucket_lists = @user.bucket_lists
     # いいねリスト表示用
     favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)

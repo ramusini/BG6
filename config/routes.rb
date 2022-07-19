@@ -7,13 +7,17 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
 
-  # 管理者用
+  # 管理者
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
 
-  # ユーザー用
+  namespace :admins do
+    root to: "homes#top"
+  end
+
+  # ユーザー
   scope module: :public do
     resources :users
     resources :boardgames
@@ -27,6 +31,7 @@ Rails.application.routes.draw do
     root to: "homes#top"
   end
 
+  # ゲスト
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
