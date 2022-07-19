@@ -1,0 +1,2 @@
+$('#favorite_buttons_<%= @bucket_list.id %>').html("<%= j(render "public/favorites/favorite", bucket_list: @bucket_list) %>");
+<%# 最初の『#』はidを指定している場合。classで指定していた場合は『.』 %>

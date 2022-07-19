@@ -1,0 +1,17 @@
+<% if bucket_list.favorited?(current_user) %>
+  <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
+  <%= link_to bucket_list_favorites_path(bucket_list), method: :delete, remote: true do %>
+    <span style="color:red;"><i class="fas fa-heart"></i> <%= bucket_list.favorites.count %></span></br>
+  <% end %>
+  <%= link_to bucket_list_path(bucket_list) do %>
+    コメント:<%= bucket_list.comments.count %>
+  <% end %>
+<% else %>
+  <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
+  <%= link_to bucket_list_favorites_path(bucket_list), method: :post, remote: true do %>
+    <span style="color:#1E90FF;"><i class="fa-regular fa-heart"></i> <%= bucket_list.favorites.count %></span></br>
+  <% end %>
+  <%= link_to bucket_list_path(bucket_list) do %>
+    コメント:<%= bucket_list.comments.count %>
+  <% end %>
+<% end %>

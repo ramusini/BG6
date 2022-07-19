@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # before_action :authenticate_user!, except: [:show, :index] ←未ログインの場合、ログイン画面にリダイレクト。(showとindexを除く)
+  # before_action :authenticate_user!, except: [:top] 
 
   # ログイン後の画面を記録一覧へ
   # def after_sign_in_path_for(resource)

@@ -1,36 +1,54 @@
 <div class='container mt-5 mb-5'>
   <div class='row'>
     <div class='col-md-4'>
-      <h3>左側</h3>
+      <h3>タイトル</h3>
       <table class="table-bordered">
         <tr>
           <td>画像</td>
-          <td>画像を入れたい</td>
+          <td><img src="<%= @played_bg.image %>" width="100"/></td>
         </tr>
         <tr>
           <td>タイトル</td>
-          <td><%= @playd_bg.bg_title %></td>
+          <td><%= @played_bg.played_title %></td>
         </tr>
         <tr>
           <td>最小プレイヤー</td>
-          <td><%= @playd_bg.minplayer %></td>
+          <td><%= @played_bg.minplayer %></td>
         </tr>
         <tr>
           <td>最大プレイヤー</td>
-          <td><%= @playd_bg.maxplayer %></td>
+          <td><%= @played_bg.maxplayer %></td>
         </tr>
         <tr>
           <td>時間</td>
-          <td><%= @playd_bg.playingtime %></td>
+          <td><%= @played_bg.playingtime %></td>
         </tr>
         <tr>
           <td>評価</td>
-          <td><%= @playd_bg.rate %></td>
+          <td><%= @played_bg.rate %></td>
         </tr>
       </table>
     </div>
     <div class='col-md-7 offset-md-1'>
-      <h3>右側</h3>
+      <h3>記録</h3>
+      <table class="table">
+        <tr>
+          <th>遊んだ日</th>
+          <th>プレイ時間</th>
+          <th>対戦者</th>
+        </tr>
+        <% @records.each do |record| %>
+          <tr>
+            <td width="25%"><%= record.date %></td>
+            <td width="25%"><%= record.playing_time %> 分</td>
+            <td width="50%">
+              <% record.scores.all.each do |score| %>
+                <%= score.player.player_name %><%="　"%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

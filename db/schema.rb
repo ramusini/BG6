@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_023621) do
+ActiveRecord::Schema.define(version: 2022_07_17_162034) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_023621) do
   end
 
   create_table "board_games", force: :cascade do |t|
-    t.string "played_title", null: false
+    t.string "played_title"
     t.string "minplayer"
     t.string "maxplayer"
     t.string "playingtime"
@@ -79,6 +79,21 @@ ActiveRecord::Schema.define(version: 2022_07_15_023621) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "bucket_list_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "bucket_list_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "players", force: :cascade do |t|
     t.string "player_name", null: false
     t.integer "user_id", null: false
@@ -88,11 +103,9 @@ ActiveRecord::Schema.define(version: 2022_07_15_023621) do
 
   create_table "records", force: :cascade do |t|
     t.string "date", null: false
-    t.string "score", null: false
     t.string "playing_time", null: false
     t.text "memo"
     t.integer "user_id", null: false
-    t.integer "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "board_game_id", null: false
@@ -119,6 +132,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_023621) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "memo", default: "しがないボードゲーマー"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

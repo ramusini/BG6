@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :records, dependent: :destroy
   has_many :players, dependent: :destroy
   has_many :bucket_lists, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   has_one_attached :profile_image
 
@@ -16,6 +18,19 @@ class User < ApplicationRecord
       profile_image.attach(io: File.open(file_path), filename: 'default-mage.jpg', content_type: 'image/jpeg')
     end
       profile_image.variant(resize_to_limit: [width, height]).processed
+  end
+
+  def self.guest
+    find_or_create_by!(name: 'guestuser' ,
+                      email: 'guests@example.com',
+                      postal_code: '1231234',
+                      prefecture: 'ボドゲ県',
+                      city: 'ミープル区',
+                      age: '0〜99',
+                      memo: '主に重ゲーを遊んでいます！') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
   end
 
 end

@@ -1,0 +1,14 @@
+<h3>遊びたいボドゲ</h3>
+
+<table class="table-bordered" >
+  <tr>
+    <%= render "bucket_data", data: @bucket_list %>
+  </tr>
+</table>
+ <!--コメント一覧＆投稿機能-->
+      <div id="comments_index">
+        <%= render "public/comments/index", bucket_list: @bucket_list %>
+      </div>
+      <div id="comments_form">
+        <%= render "public/comments/form", bucket_list: @bucket_list, new_comment: @new_comment %>
+      </div>
