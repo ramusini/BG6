@@ -1,141 +1,136 @@
-<div class='container mt-5 mb-5'>
-  <div class='row'>
-    <div class='col-md-4'>
-      <h3>ユーザー詳細</h3>
-      <table class="table">
-        <tr>
-          <td>
-            <h3>
-              <%= render 'user_info', user: @user %>
-              <% if @user.name != "guestuser" %>
-                <% if @user == current_user %>
-                  <%= link_to "編集", edit_user_path(@user) %>
-                <% end %>
-              <% end %>
-            </h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-              <%= safe_join(@user.memo.try(:split, "\n"), tag(:br)) %>
-          </td>
-        </tr>
-        <tr>
-          <td>地域：<%= @user.prefecture %> <%= @user.city %></td>
-        </tr>
-        <% if @user == current_user %>
-          <tr>
-            <td>
-              <%= link_to "対戦者一覧", players_path %>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+<div class='col-md-4'>
+  <h3>ユーザー詳細</h3>
+  <table class="table">
+    <tr>
+      <td>
+        <h3>
+          <%= render 'user_info', user: @user %>
+          <% if @user.name != "guestuser" %>
+            <% if @user == current_user %>
+              <%= link_to "編集", edit_user_path(@user) %>
+            <% end %>
+          <% end %>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <%= safe_join(@user.memo.try(:split, "\n"), tag(:br)) %>
+      </td>
+    </tr>
+    <tr>
+      <td>地域：<%= @user.prefecture %> <%= @user.city %></td>
+    </tr>
+    <% if @user == current_user %>
+      <tr>
+        <td>
+          <%= link_to "対戦者一覧", players_path %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-    <div class='col-md-8'>
-      <h3>ボードゲームリスト</h3>
-      
-      <div class="accordion" id="accordionPanelsStayOpenExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-        Played Games
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-      <div class="accordion-body">
-        <table class="table-bordered col-12">
-          <% @played_bgs.each do |bg| %>
-          <tr>
-            <td>
-              <%= link_to boardgame_path(bg) do %>
-                <img src="<%= bg.image %>" width="100"/>
-              <% end %>
-            </td>
-            <td class="text-center" width="18%">
-              <%= link_to boardgame_path(bg) do %>
-                <%= bg.played_title %></br>
-                <%= bg.minplayer %>-<%= bg.maxplayer %>人</br>
-                <%= bg.playingtime %>min</br>
-              <% end %>
-            </td>
-            <td class="text-center">記録数</td>
-            <td class="text-center"><i class="fa-solid fa-circle-plus"></i></td>
-          </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-         Bucket List
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-      <div class="accordion-body">
-        <table class="table-bordered col-md-12">
-          <% @bucket_lists.each do |bucket_list| %>
-            <tr>
-              <!--遊びたいボドゲ情報-->
-              <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-              <!--いいねボタン&コメント-->
-              <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="15%">
-                <% if @user != current_user %>
-                  <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
-                <% end %>
-                <%= link_to bucket_list_path(bucket_list) do %>
-                  <i class="fa-regular fa-comments"></i>:<%= bucket_list.comments.count %></br>
-                <% end %>
-                <% if @user == current_user %>
-                  <%= link_to edit_bucket_list_path(bucket_list.id) do %></br>
-                    <i class="fa-solid fa-pen-to-square"></i>
+<div class='col-md-8'>
+  <h3>ボードゲームリスト</h3>
+  <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          Played Games
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+          <table class="table-bordered col-12">
+            <% @played_bgs.each do |bg| %>
+              <tr>
+                <td>
+                  <%= link_to boardgame_path(bg) do %>
+                    <img src="<%= bg.image %>" width="100"/>
                   <% end %>
-                  <div></div></br>
-                  <%= link_to bucket_list_path(bucket_list.id), method: :delete do %>
-                    <i class="fa-solid fa-trash-can"></i>
+                </td>
+                <td class="text-center" width="18%">
+                  <%= link_to boardgame_path(bg) do %>
+                    <%= bg.played_title %></br>
+                    <%= bg.minplayer %>-<%= bg.maxplayer %>人</br>
+                    <%= bg.playingtime %>min</br>
                   <% end %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </table>
+                </td>
+                <td class="text-center" width="60%">記録数：遊んだ人：遊んだ回数</td>
+                <td class="text-center" width="15%"><i class="fa-solid fa-circle-plus"></i></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+           Bucket List
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
+          <table class="table-bordered col-md-12">
+            <% @bucket_lists.each do |bucket_list| %>
+              <tr>
+                <!--遊びたいボドゲ情報-->
+                <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
+                <!--いいねボタン&コメント-->
+                <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="15%">
+                  <% if @user != current_user %>
+                    <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
+                  <% end %>
+                  <%= link_to bucket_list_path(bucket_list) do %>
+                    <i class="fa-regular fa-comments"></i>:<%= bucket_list.comments.count %></br>
+                  <% end %>
+                  <% if @user == current_user %>
+                    <%= link_to edit_bucket_list_path(bucket_list.id) do %></br>
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    <% end %>
+                    <div></div></br>
+                    <%= link_to bucket_list_path(bucket_list.id), method: :delete do %>
+                      <i class="fa-solid fa-trash-can"></i>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          Favorites
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body">
+          <table class="table-bordered col-md-12">
+            <% @favorite_bucket_lists.each do |f_bucket_list|%>
+              <tr>
+                <!--遊びたいボドゲ情報-->
+                <%= render "public/bucket_lists/bucket_data", data: f_bucket_list %>
+                <!--いいねボタン-->
+                <td id="favorite_buttons_<%= f_bucket_list.id %>" class="text-center" width="15%">
+                  <%= render 'public/favorites/favorite', bucket_list: f_bucket_list %></br>
+                </td>
+                <!--ユーザー情報-->
+                <td class="text-center">
+                  <%= link_to user_path(f_bucket_list.user, class: "text-center") do %>
+                    <%= image_tag f_bucket_list.user.get_profile_image(100,100) %></br>
+                    <%= f_bucket_list.user.name %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-        Favorites
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-      <div class="accordion-body">
-        <table class="table-bordered col-md-12">
-          <% @favorite_bucket_lists.each do |f_bucket_list|%>
-            <tr>
-              <!--遊びたいボドゲ情報-->
-              <%= render "public/bucket_lists/bucket_data", data: f_bucket_list %>
-              <!--いいねボタン-->
-              <td id="favorite_buttons_<%= f_bucket_list.id %>" class="text-center" width="15%">
-                <%= render 'public/favorites/favorite', bucket_list: f_bucket_list %></br>
-              </td>
-              <!--ユーザー情報-->
-              <td class="text-center">
-                <%= link_to user_path(f_bucket_list.user, class: "text-center") do %>
-                  <%= image_tag f_bucket_list.user.get_profile_image(100,100) %></br>
-                  <%= f_bucket_list.user.name %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
 </div>

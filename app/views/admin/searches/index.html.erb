@@ -1,9 +1,20 @@
-<h3 class="offset-md-1">ユーザーの遊びたいボドゲ</h3>
-<div class="col-10 offset-md-1">
-  <% @bucket_lists.each do |bucket_list| %>
-    <table class="table">
-      <% if bucket_list.user_id != current_user.id %>
-        <tr>
+<%= render "admin/searches/search_form" %>
+<h3>検索結果</h3>
+<table class="table">
+  <% if @users.present? %>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= link_to user_path(user) do %>
+            <%= image_tag user.get_profile_image(100,100) %>
+            <%= user.name %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% elsif @bucket_lists.present? %>
+    <% @bucket_lists.each do |bucket_list| %>
+      <tr>
         <!--遊びたいボドゲ情報-->
         <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
         <!--いいねボタン-->
@@ -18,7 +29,6 @@
           <% end %>
         </td>
       </tr>
-      <% end %>
-    </table>
+    <% end %>
   <% end %>
-</div>
+</table>

@@ -13,8 +13,12 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  namespace :admins do
-    root to: "homes#top"
+  namespace :admin do
+    resources :searches do
+      collection do
+       get "search"
+      end
+    end
   end
 
   # ユーザー
@@ -22,7 +26,11 @@ Rails.application.routes.draw do
     resources :users
     resources :boardgames
     resources :records
-    resources :searches
+    resources :searches do
+     collection do
+       get "search"
+     end
+    end
     resources :players
     resources :bucket_lists do
       resource :favorites, only: [:create, :destroy]
