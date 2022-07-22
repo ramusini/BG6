@@ -11,16 +11,14 @@
         <!--devise機能リンク-->
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <!--検索機能は左詰め-->
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav me-auto">
             <% if user_signed_in? %>
-              <li class="nav-item"><%= link_to "相手を探す", users_path, class: 'nav-link active' %></li>
-              <li class="nav-item"><%= link_to "対戦者", players_path, class: 'nav-link active' %></li>
+              <li class="nav-item"><%= link_to "相手を探す", searches_path, class: 'nav-link active' %></li>
             <% end %>
           </ul>
           <!--ユーザー情報は右詰め-->
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ms-auto">
             <% if user_signed_in? %>
-              <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link active' %></li>
               <li class="nav-item">
                 <%= link_to user_path(current_user) do %>
                   <%= image_tag current_user.get_profile_image(40,40) %>
@@ -31,6 +29,9 @@
                   <%= current_user.name %>
                 <% end %>
               </li>
+              <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link active' %></li>
+            <% elsif admin_signed_in? %>
+              <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link active' %></li>
             <% else %>
               <li class="nav-item"><%= link_to "会員登録(なんとタダ)!", new_user_registration_path, class: 'nav-link active' %></li>
               <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: 'nav-link active' %></li>

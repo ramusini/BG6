@@ -1,31 +1,17 @@
-遊んだボドゲ一覧
+<%= render "public/searches/search_form" %>
 <table class="table">
-  <tr>
-    <th></th>
-    <th>タイトル</th>
-    <th>最低プレイ人数</th>
-    <th>最大プレイ人数</th>
-    <th>時間</th>
-    <th><%= current_user.name %>の評価</th>
-  </tr>
-  <% @played_bgs.each do |bg| %>
-  <tr>
+  <% @results.each do |result| %>
+    <tr>
+      <td><%= result[:id] %></td>
+      <td><%= result[:value] %></td>
       <td>
-        <%= link_to boardgame_path(bg) do %>
-          <img src="<%= bg.image %>" width="100"/>
-        <% end %>
+        <div class="select_bg">
+          <%= form_with url: search_path(result[:id]), local: true, method: :get do |f| %>
+            <%= f.hidden_field :bg_id, :value => result[:id] %>
+            <%= f.submit "詳細情報を見る", class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </td>
-      <td>
-        <%= link_to boardgame_path(bg) do %>
-          <%= bg.played_title %>
-        <% end %>
-      </td>
-      <td><%= bg.minplayer %></td>
-      <td><%= bg.maxplayer %></td>
-      <td><%= bg.playingtime %></td>
-      <td><%= bg.rate %></td>
-  </tr>
+    </tr>
   <% end %>
 </table>
-
-

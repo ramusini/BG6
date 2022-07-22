@@ -14,7 +14,8 @@ class Public::PlayersController < ApplicationController
   def create
     @new_player = Player.new(player_params)
     @new_player.save
-    redirect_to "/"
+    @players = Player.where(user_id: current_user.id)
+    render :index
   end
 
   private

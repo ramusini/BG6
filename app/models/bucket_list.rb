@@ -8,4 +8,13 @@ class BucketList < ApplicationRecord
   def favorited?(user)
    favorites.where(user_id: user.id).exists?
   end
+
+  # 検索
+  def self.looks(word)
+    if word.blank?
+      BucketList.all
+    else
+      BucketList.where("bucket_title LIKE?","%#{word}%")
+    end
+  end
 end

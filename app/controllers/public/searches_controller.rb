@@ -1,13 +1,26 @@
 class Public::SearchesController < ApplicationController
 
+  def search
+    if params[:address_num] == "1" #ボードゲームを検索
+      bgg = BggApi.new
+      res = bgg.search( {:query => params[:word], :type => 'boardgame'} )
+      # resに格納されたハッシュのキー名が"item"の値を抜き出して配列化。
+      # mapメソッドでキー名が『id』『value』の配列の値を抜き出し、新たに配列を作成。@resultsに格納。
+      # 『value』でdigメソッドを利用しているのは、値がなかった場合でもエラーを吐かないようにするため。
+      @results = res["item"].map{|item| {id: item["id"], value: item.dig("name", 0, "value")}} # ←キー名『name』の値が配列になっているので、そこから0番の値のうち、キー名がvalueのものを抜いている
+      render template: "public/boardgames/index"
+    elsif params[:address_num] == "2" # ユーザーを検索
+      @users = User.looks(params[:word])
+      render template: "public/users/index"
+    elsif params[:address_num] == "3" # ユーザーのバゲットリストを検索
+      @bucket_lists = BucketList.looks(params[:word])
+      render template: "public/bucket_lists/index"
+    end
+  end
+
   def index
-    bgg = BggApi.new
-    # トップ画面でユーザーが入力した検索ワードを『:sear_title』として受け受けてsearch。resに格納。
-    res = bgg.search( {:query => params[:search_title], :type => 'boardgame'} )
-    # resに格納されたハッシュのキー名が"item"の値を抜き出して配列化。
-    # mapメソッドでキー名が『id』『value』の配列の値を抜き出し、新たに配列を作成。@resultsに格納。
-    # 『value』でdigメソッドを利用しているのは、値がなかった場合でもエラーを吐かないようにするため。
-    @results = res["item"].map{|item| {id: item["id"], value: item.dig("name", 0, "value")}} # ←キー名『name』の値が配列になっているので、そこから0番の値のうち、キー名がvalueのものを抜いている
+    @users = User.all
+    @bucket_lists = BucketList.all
   end
 
   def show

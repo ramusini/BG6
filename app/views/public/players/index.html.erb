@@ -1,8 +1,17 @@
-<h3>対戦者リスト</h3>
-<% @players.each do |player| %>
-  <table>
-    <tr>
-      <td><%= player.player_name %></td>
-    </tr>
-  </table>
-<% end %>
+<div class="row justify-content-center">
+  <div class="col-3">
+    <h3>
+      対戦者リスト
+      <%= link_to new_player_path do %>
+      <i class="fa-solid fa-circle-plus"></i>
+      <% end %>
+    </h3>
+    <% @players.each do |player| %>
+      <table class="ms-2">
+        <tr>
+          <td><%= player.player_name %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>
