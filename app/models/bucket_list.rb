@@ -2,6 +2,8 @@ class BucketList < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :bucket_list_tag_relations, dependent: :destroy
+  has_many :tags, through: :bucket_list_tag_relations, dependent: :destroy
 
   #一致するレコードが存在しない＝「まだいいねしていない→createアクションへ」
   #一致するレコードが存在する　＝「すでにいいね済み→destroyアクションへ」

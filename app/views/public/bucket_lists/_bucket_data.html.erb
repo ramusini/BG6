@@ -7,5 +7,8 @@
   <%= data.playingtime %>min</br>
 </td>
 <td width="60%">
-  <%= safe_join(data.memo.split("\n"),tag(:br)) %>
+  <%= safe_join(data.memo.split("\n"),tag(:br)) %></br>
+  <% data.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+  <% end %>
 </td>

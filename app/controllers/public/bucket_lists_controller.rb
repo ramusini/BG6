@@ -1,6 +1,7 @@
 class Public::BucketListsController < ApplicationController
 
   def new
+    @new_bucket_list = BucketList.new
     @bg_id = params[:bg_id]
     @image = params[:image]
     @title = params[:title]
@@ -11,10 +12,10 @@ class Public::BucketListsController < ApplicationController
 
   def create
     @new_bucket_list = BucketList.new(bucket_list_params)
-    @new_bucket_list.user_id = current_user.id
+    tag_list = params[:bucket_list][:name].split(',')
     @new_bucket_list.save
-
-    redirect_to bucket_lists_path
+    @post.save_tag(tag_list)
+    redirect_to user_path(current_user)
   end
 
   def index
@@ -55,11 +56,22 @@ class Public::BucketListsController < ApplicationController
   private
 
   def bucket_list_params
-    params.permit(:bg_id, :image, :bucket_title, :minplayer, :maxplayer, :playingtime, :memo)
+    params.require(:bucket_list).permit(:bg_id,
+                                        :image,
+                                        :bucket_title,
+                                        :minplayer,
+                                        :maxplayer,
+                                        :playingtime,
+                                        :memo).merge(user_id: current_user.id)
   end
 
   def patch_bucket_list_params
     params.require(:bucket_list).permit(:memo)
+  end
+
+  # tag情報
+  def article_params
+    params.require(:article).permit(:body, tag_ids: [])
   end
 
 end
