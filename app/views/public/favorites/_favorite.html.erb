@@ -1,17 +1,41 @@
-<% if bucket_list.favorited?(current_user) %>
-  <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
-  <%= link_to bucket_list_favorites_path(bucket_list), method: :delete, remote: true do %>
-    <span style="color:red;"><i class="fas fa-heart"></i>:<%= bucket_list.favorites.count %></span></br>
+<!--ユーザーリンク-->
+<% if bucket_list.user != current_user%>
+
+
+  <% if current_page?(searches_path) %>
+    <%= link_to user_path(bucket_list.user), class: "pe-5 text-decoration-none" do %>
+      <i class="fa-solid fa-circle-user"></i><%= bucket_list.user.name %>
+    <% end %>
   <% end %>
-  <%= link_to bucket_list_path(bucket_list) do %>
-    <i class="fa-regular fa-comments"></i>:<%= bucket_list.comments.count %>
+
+  <!--いいね機能-->
+  <% if bucket_list.favorited?(current_user) %>
+    <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
+    <%= link_to bucket_list_favorites_path(bucket_list), method: :delete, remote: true, class: "pe-3 text-decoration-none" do %>
+      <span style="color:red;"><i class="fas fa-heart pe-2"></i><%= bucket_list.favorites.count %></span>
+    <% end %>
+  <% else %>
+    <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
+    <%= link_to bucket_list_favorites_path(bucket_list), method: :post, remote: true, class: "pe-3 text-decoration-none" do %>
+      <span style="color:#1E90FF;"><i class="fa-regular fa-heart pe-2"></i><%= bucket_list.favorites.count %></span>
+    <% end %>
   <% end %>
 <% else %>
-  <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
-  <%= link_to bucket_list_favorites_path(bucket_list), method: :post, remote: true do %>
-    <span style="color:#1E90FF;"><i class="fa-regular fa-heart"></i>:<%= bucket_list.favorites.count %></span></br>
+  <span style="color:black;" class="pe-3"><i class="fa-solid fa-hand-holding-heart pe-2"></i><%= bucket_list.favorites.count %></span>
+<% end %>
+
+<!--コメントリンク-->
+<%= link_to bucket_list_path(bucket_list), class: "pe-4 text-decoration-none" do %>
+  <span><i class="fa-regular fa-comments pe-2"></i><%= bucket_list.comments.count %></span>
+<% end %>
+
+<% if bucket_list.user == current_user%>
+  <!--bucket_list編集ボタン-->
+  <%= link_to edit_bucket_list_path(bucket_list.id), class: "pe-4 text-decoration-none" do %>
+    <i class="fa-solid fa-pen-to-square"></i>
   <% end %>
-  <%= link_to bucket_list_path(bucket_list) do %>
-    <i class="fa-regular fa-comments"></i>:<%= bucket_list.comments.count %>
+  <!--bucket_list削除ボタン-->
+  <%= link_to bucket_list_path(bucket_list.id), class: "text-decoration-none", method: :delete do %>
+    <i class="fa-solid fa-trash-can"></i>
   <% end %>
 <% end %>

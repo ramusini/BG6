@@ -14,7 +14,7 @@ class Public::RecordsController < ApplicationController
     # 今回の遊んだ記録を保存
     @new_record = Record.new(record_params)
     if @new_record.save
-      redirect_to boardgames_path
+      redirect_to user_path(current_user)
     else
       render :new
     end

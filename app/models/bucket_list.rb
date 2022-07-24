@@ -19,4 +19,13 @@ class BucketList < ApplicationRecord
       BucketList.where("bucket_title LIKE?","%#{word}%")
     end
   end
+
+  # def save_tag(sent_tags)
+  #   sent_tags.each do |new|
+  #     new_bucket_list_tag = Tag.find_or_create_by(name: new)
+  #     self.tags << new_bucket_list_tag
+  #   end
+  # end
+
+  accepts_nested_attributes_for :bucket_list_tag_relations
 end

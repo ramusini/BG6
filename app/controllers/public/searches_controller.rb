@@ -21,6 +21,14 @@ class Public::SearchesController < ApplicationController
   def index
     @users = User.all
     @bucket_lists = BucketList.all
+
+    if params[:tag_ids]
+      @bucket_lists = []
+      params[:tag_ids].each do |key, value|
+        @bucket_lists += Tag.find_by(name: key).bucket_lists if value == "1"
+      end
+      @bucket_lists.uniq!
+    end
   end
 
   def show

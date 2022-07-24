@@ -1,5 +1,5 @@
 <div class='col-3 offset-md-1'>
-  <h3>他のユーザー</h3>
+  <h3>Users</h3>
   <table class="table">
     <% @users.each do |user| %>
       <% if user != current_user %>
@@ -16,26 +16,25 @@
   </table>
 </div>
 <div class='col-md-6'>
-  <h3>他のユーザーの遊びたいゲーム</h3>
+  <h3>User's want to play</h3>
   <% @bucket_lists.each do |bucket_list| %>
     <table class="table">
       <% if bucket_list.user_id != current_user.id %>
         <tr>
-          <!--遊びたいボドゲ情報-->
+          <!--ボドゲ情報&ユーザーリンク-->
           <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-          <!--いいねボタン-->
-          <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="10%">
-            <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
-          </td>
-          <!--ユーザー情報-->
-          <td class="text-center" width="15%">
-            <%= link_to user_path(bucket_list.user, class: "text-center") do %>
-              <%= image_tag bucket_list.user.get_profile_image(100,100) %></br>
-              <%= bucket_list.user.name %>
-            <% end %>
-          </td>
+          <!--いいね&コメント-->
+          
         </tr>
       <% end %>
     </table>
   <% end %>
+</div>
+<div class="col-2">
+  <%= form_tag({controller:"searches",action:"index"}, method: :get) do %>
+    <% Tag.all.each do |t| %>
+        <%= check_box :tag_ids, t.name %><%= t.name %></br>
+    <% end %>
+    <%= submit_tag '検索' %>
+<% end %>
 </div>

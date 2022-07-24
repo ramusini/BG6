@@ -1,15 +1,40 @@
 <!--コメント一覧-->
-<div>
+<table class="table">
   <% bucket_list.comments.each do |c| %>
-    <div>
-      <%= image_tag c.user.get_profile_image(80,80) %>
-      <%= c.comment %>
-      <% if c.user == current_user %>
-        <%= link_to "削除", bucket_list_comment_path(c.bucket_list, c), method: :delete, remote: true %>
-      <% end %>
-    </div>
-    <div>
-      <%= link_to c.user.name, user_path(c.user) %>
-    </div>
+    <% if c.user != bucket_list.user %>
+      <tr>
+        <td width="20%">
+          <%= image_tag c.user.get_profile_image(80,80) %>
+        </td>
+        <td width="60%">
+          <%= link_to c.user.name, user_path(c.user) %></br>
+          <%= c.comment %></br>
+          <% if c.user == current_user %>
+            <%= link_to bucket_list_comment_path(c.bucket_list, c), method: :delete, remote: true do %>
+              <i class="fa-solid fa-trash-can"></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td width="20%">
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <td width="20%">
+        </td>
+        <td width="60%" class="text-end">
+          <%= link_to c.user.name, user_path(c.user) %></br>
+          <%= c.comment %></br>
+          <% if c.user == current_user %>
+            <%= link_to bucket_list_comment_path(c.bucket_list, c), method: :delete, remote: true do %>
+              <i class="fa-solid fa-trash-can"></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td width="20%">
+          <%= image_tag c.user.get_profile_image(80,80) %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
-</div>
+</table>
