@@ -1,2 +1,44 @@
-<%= image_tag user.get_profile_image(100,100) %>
-<%= user.name %>
+<table class="table">
+    <tr>
+      <td>
+        <h3>
+          <%= image_tag user.get_profile_image(100,100) %>
+          <%= user.name %>
+          <% if user.name != "guestuser" %>
+            <% if user == current_user %>
+              <%= link_to "編集", edit_user_path(user) %>
+            <% end %>
+          <% end %>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <% if user.memo.blank? %>
+          ボードゲーム初心者
+        <% else %>
+          <%= safe_join(user.memo.try(:split, "\n"), tag(:br)) %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>地域：<%= user.prefecture %> <%= user.city %></td>
+    </tr>
+    <% if user == current_user %>
+      <tr>
+        <td>
+          <%= link_to "対戦者一覧", players_path %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>
+        <!--タグを全件表示-->
+        <span><遊びたいゲームタグ数></span></br>
+        <% @tag_list.each do |list|%>
+          <%=list.name %>
+          <%="(#{list.bucket_lists.count})" %></br>
+        <% end %>
+      </td>
+    </tr>
+  </table>

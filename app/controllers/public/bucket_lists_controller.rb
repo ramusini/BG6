@@ -1,6 +1,8 @@
 class Public::BucketListsController < ApplicationController
 
   def new
+    @new_bucket_list = BucketList.new
+
     @bg_id = params[:bg_id]
     @image = params[:image]
     @title = params[:title]
@@ -11,10 +13,15 @@ class Public::BucketListsController < ApplicationController
 
   def create
     @new_bucket_list = BucketList.new(bucket_list_params)
-    @new_bucket_list.user_id = current_user.id
     @new_bucket_list.save
-
-    redirect_to bucket_lists_path
+     #繰り返し、選択したタグを保存
+    params[:bucket_list][:tag_ids].each do |tag|
+      new = BucketListTagRelation.new
+      new.tag_id = tag
+      new.bucket_list_id = @new_bucket_list.id
+      new.save
+    end
+    redirect_to user_path(current_user)
   end
 
   def index
@@ -35,7 +42,7 @@ class Public::BucketListsController < ApplicationController
     bucket_list.destroy
 
     @bucket_lists = BucketList.where(user_id: current_user.id)
-    render :index
+    redirect_to user_path(current_user)
   end
 
   def edit
@@ -55,7 +62,14 @@ class Public::BucketListsController < ApplicationController
   private
 
   def bucket_list_params
-    params.permit(:bg_id, :image, :bucket_title, :minplayer, :maxplayer, :playingtime, :memo)
+    params.require(:bucket_list).permit(:bg_id,
+                                        :image,
+                                        :bucket_title,
+                                        :minplayer,
+                                        :maxplayer,
+                                        :playingtime,
+                                        :memo
+                                        ).merge(user_id: current_user.id)
   end
 
   def patch_bucket_list_params

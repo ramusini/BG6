@@ -11,6 +11,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @played_bgs = @user.board_games
     @bucket_lists = @user.bucket_lists
+    @tag_list = Tag.all
     # いいねリスト表示用
     favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)
     @favorite_bucket_lists = BucketList.find(favorites)
@@ -47,6 +48,11 @@ class Public::UsersController < ApplicationController
     if @user.name == "guestuser"
       redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
+  end
+
+  # tag情報
+  def article_params
+    params.require(:article).permit(:body, tag_ids: [])
   end
 
 end

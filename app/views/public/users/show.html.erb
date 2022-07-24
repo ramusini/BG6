@@ -1,38 +1,10 @@
 <div class='col-md-4'>
-  <h3>ユーザー詳細</h3>
-  <table class="table">
-    <tr>
-      <td>
-        <h3>
-          <%= render 'user_info', user: @user %>
-          <% if @user.name != "guestuser" %>
-            <% if @user == current_user %>
-              <%= link_to "編集", edit_user_path(@user) %>
-            <% end %>
-          <% end %>
-        </h3>
-      </td>
-    </tr>
-    <tr>
-      <td>
-          <%= safe_join(@user.memo.try(:split, "\n"), tag(:br)) %>
-      </td>
-    </tr>
-    <tr>
-      <td>地域：<%= @user.prefecture %> <%= @user.city %></td>
-    </tr>
-    <% if @user == current_user %>
-      <tr>
-        <td>
-          <%= link_to "対戦者一覧", players_path %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <h3>User</h3>
+  <%= render 'user_info', user: @user %>
 </div>
 
 <div class='col-md-8'>
-  <h3>ボードゲームリスト</h3>
+  <h3>Your Boardgames</h3>
   <div class="accordion" id="accordionPanelsStayOpenExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -57,8 +29,14 @@
                     <%= bg.playingtime %>min</br>
                   <% end %>
                 </td>
-                <td class="text-center" width="60%">記録数：遊んだ人：遊んだ回数</td>
-                <td class="text-center" width="15%"><i class="fa-solid fa-circle-plus"></i></td>
+                <td class="text-center" width="60%">
+                  遊んだ回数:<%= bg.records.count %> 遊んだ人：
+                  </td>
+                <td class="text-center" width="15%">
+                  <%= link_to new_record_path(bg_id: bg.bg_id) do %>
+                    <i class="fa-solid fa-circle-plus"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </table>
@@ -73,29 +51,12 @@
       </h2>
       <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
         <div class="accordion-body">
-          <table class="table-bordered col-md-12">
+          <table class="table col-md-12">
+            <!--bucket_listに登録してるゲームを一覧表示-->
             <% @bucket_lists.each do |bucket_list| %>
               <tr>
                 <!--遊びたいボドゲ情報-->
                 <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-                <!--いいねボタン&コメント-->
-                <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="15%">
-                  <% if @user != current_user %>
-                    <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
-                  <% end %>
-                  <%= link_to bucket_list_path(bucket_list) do %>
-                    <i class="fa-regular fa-comments"></i>:<%= bucket_list.comments.count %></br>
-                  <% end %>
-                  <% if @user == current_user %>
-                    <%= link_to edit_bucket_list_path(bucket_list.id) do %></br>
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    <% end %>
-                    <div></div></br>
-                    <%= link_to bucket_list_path(bucket_list.id), method: :delete do %>
-                      <i class="fa-solid fa-trash-can"></i>
-                    <% end %>
-                  <% end %>
-                </td>
               </tr>
             <% end %>
           </table>

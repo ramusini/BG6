@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bucket_list: MyString
+  : one
+  tag: one
+
+two:
+  bucket_list: MyString
+  : two
+  tag: two

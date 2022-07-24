@@ -1,11 +1,23 @@
-<td>
+<td width="10%">
   <img src="<%= data.image %>" width="100"/>
 </td>
-<td class="text-center" width="18%">
-  <%= data.bucket_title %></br>
-  <%= data.minplayer %>-<%= data.maxplayer %>人</br>
-  <%= data.playingtime %>min</br>
-</td>
-<td width="60%">
-  <%= safe_join(data.memo.split("\n"),tag(:br)) %>
+<td width="80%">
+  <!--BGデータ-->
+  <div class="pb-2">
+    <span class="pe-2"><%= data.bucket_title %></span>
+    <i class="fa-solid fa-users pe-1"></i><%= data.minplayer %>-<%= data.maxplayer %>
+    <i class="fa-regular fa-clock pe-1"></i><%= data.playingtime %>
+  </div>
+  <!--メモ-->
+  <div class="mb-4">
+    <%= safe_join(data.memo.split("\n"),tag(:br)) %></br>
+  </div>
+  <div>
+    <!--タグ-->
+    <i class="fas fa-tag"></i><%= data.tags.map(&:name).join(', ') %></br>
+    <!--ユーザー名&いいね&コメント-->
+    <span id="favorite_buttons_<%= data.id %>" class="m-auto" width="10%">
+      <%= render 'public/favorites/favorite', bucket_list: data %></br>
+    </span>
+  </div>
 </td>
