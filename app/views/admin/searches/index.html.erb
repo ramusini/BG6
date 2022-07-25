@@ -1,6 +1,7 @@
 <%= render "admin/searches/search_form" %>
 <h3>検索結果</h3>
 <table class="table">
+  <!--ユーザーを検索した結果-->
   <% if @users.present? %>
     <% @users.each do |user| %>
       <tr>
@@ -12,6 +13,7 @@
         </td>
       </tr>
     <% end %>
+  <!--bucketlistを検索した結果-->
   <% elsif @bucket_lists.present? %>
     <% @bucket_lists.each do |bucket_list| %>
       <tr>

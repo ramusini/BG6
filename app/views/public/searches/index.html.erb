@@ -1,21 +1,4 @@
-<div class='col-3 offset-md-1'>
-  <h3>Users</h3>
-  <table class="table">
-    <% @users.each do |user| %>
-      <% if user != current_user %>
-        <tr>
-          <td>
-            <%= link_to user_path(user) do %>
-              <%= image_tag user.get_profile_image(100,100) %>
-              <%= user.name %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
-  </table>
-</div>
-<div class='col-md-6'>
+<div class='col-md-6 offset-md-2'>
   <h3>User's want to play</h3>
   <% @bucket_lists.each do |bucket_list| %>
     <table class="table">
@@ -24,17 +7,18 @@
           <!--ボドゲ情報&ユーザーリンク-->
           <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
           <!--いいね&コメント-->
-          
+
         </tr>
       <% end %>
     </table>
   <% end %>
 </div>
 <div class="col-2">
+  <h3>タグ検索</h3>
   <%= form_tag({controller:"searches",action:"index"}, method: :get) do %>
     <% Tag.all.each do |t| %>
         <%= check_box :tag_ids, t.name %><%= t.name %></br>
     <% end %>
-    <%= submit_tag '検索' %>
+    <%= submit_tag '検索', class: "mt-2" %>
 <% end %>
 </div>

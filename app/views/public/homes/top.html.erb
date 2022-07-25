@@ -1,5 +1,7 @@
  <div class="btn-wrapper col-12 mx-auto">
-  <% if user_signed_in? %>
+  <% if admin_signed_in? %>
+
+  <% elsif user_signed_in? %>
     <%= render "public/searches/search_form" %>
   <% else %>
     <div class="row">
