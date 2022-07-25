@@ -60,6 +60,8 @@ gem 'devise'
 gem "bgg-api"
 gem 'jquery-rails'
 gem 'cocoon'
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views', '~> 0.0.1'
 
 gem 'dotenv-rails'
 group :production do

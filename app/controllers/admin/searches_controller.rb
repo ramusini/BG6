@@ -10,6 +10,7 @@ class Admin::SearchesController < ApplicationController
   end
 
   def index
+    
   end
 
 end

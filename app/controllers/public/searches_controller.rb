@@ -19,7 +19,6 @@ class Public::SearchesController < ApplicationController
   end
 
   def index
-    @users = User.all
     @bucket_lists = BucketList.all
 
     if params[:tag_ids]
