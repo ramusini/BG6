@@ -1,18 +1,32 @@
- <div class="btn-wrapper col-12 mx-auto">
-  <% if admin_signed_in? %>
 
-  <% elsif user_signed_in? %>
-    <%= render "public/searches/search_form" %>
+  <% if user_signed_in? %>
+    <div class="col-6 offset-md-3">
+      <!--検索フォーム-->
+      <div>
+        <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
+          <div class="ms-3">
+            <string class="pe-2">Search for?</string>
+            <%= f.radio_button :address_num, 1 , checked: true %><%= f.label :address_num_1, "Boardgame", class: "p-2" %>
+            <%= f.radio_button :address_num, 2%><%= f.label :address_num_2, "User", class: "p-2" %>
+            <%= f.radio_button :address_num, 3 %><%= f.label :address_num_3, "User's [want to play]", class: "p-2" %>
+          </div>
+          <div class="col-9">
+            <%= f.text_field :word, class: "form-control" %>
+          </div>
+          <div class="col-auto ps-1">
+            <%= f.submit "検索", class: "btn btn-outline-success" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% else %>
-    <div class="row">
-      <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
-    </div>
-    <div class="row">
-      <%= link_to 'Log in',new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
-    </div>
-    <div class="row">
-      <%= link_to 'Sign Up',new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+    <div class="col-12">
+      <h4 class="text-center">ようこそ、BG録へ！</h4>
+      <p class="text-center">
+        ボードゲームを遊んだ記録をつけたり、</br>
+        ボードゲームを遊ぶ相手を探しましょう！
+      </p>
     </div>
   <% end %>
-</div>
+
 

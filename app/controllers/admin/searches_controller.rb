@@ -1,4 +1,5 @@
 class Admin::SearchesController < ApplicationController
+  before_action :require_permission
 
   def search
     if params[:address_num] == "1" #ユーザーを検索
@@ -9,8 +10,9 @@ class Admin::SearchesController < ApplicationController
     render :index
   end
 
-  def index
-    
+  def require_permission
+    admin_signed_in?
+    redirect_to new_admin_session_path
   end
 
 end

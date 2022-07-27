@@ -2,8 +2,11 @@
     <!--『navbar-expand-lg』レスポンシブ対応のため-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="/">BG録 BoardGameRecorder</a>
-
+        <% if admin_signed_in? %>
+          <a class="navbar-brand" href="/admin/searches">BG録 BoardGameRecorder</a>
+        <% else %>
+          <a class="navbar-brand" href="/">BG録 BoardGameRecorder</a>
+        <% end %>
         <!--ハンバーガーメニュー化-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -33,6 +36,7 @@
             <% elsif admin_signed_in? %>
               <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link active' %></li>
             <% else %>
+              <li class="nav-item"><%= link_to 'ゲストログイン', users_guest_sign_in_path, class: "nav-link active", method: :post %></li>
               <li class="nav-item"><%= link_to "会員登録(なんとタダ)!", new_user_registration_path, class: 'nav-link active' %></li>
               <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: 'nav-link active' %></li>
             <% end %>

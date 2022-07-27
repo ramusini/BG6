@@ -10,16 +10,17 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= render 'layouts/header' %>
-    <p id="notice"><%= notice %></p>
-    <div class="container mt-5 mb-5">
-      <div class='row'>
-        <%= yield %>
+  <div class="footerFixed">
+    <body class="bg-secondary bg-opacity-10">
+      <%= render 'layouts/header' %>
+      <div class="container mt-5 mb-5">
+        <div class='row'>
+          <%= yield %>
+        </div>
       </div>
-    </div>
-    <%= render 'layouts/footer' %>
+      <%= render 'layouts/footer' %>
 
-    <script src="https://kit.fontawesome.com/c3f40df1c4.js" crossorigin="anonymous"></script>
-  </body>
+      <script src="https://kit.fontawesome.com/c3f40df1c4.js" crossorigin="anonymous"></script>
+    </body>
+  </div>
 </html>

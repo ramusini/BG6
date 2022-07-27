@@ -50,9 +50,4 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  # tag情報
-  def article_params
-    params.require(:article).permit(:body, tag_ids: [])
-  end
-
 end
