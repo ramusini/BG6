@@ -1,36 +1,67 @@
-<%= render "admin/searches/search_form" %>
-<h3>検索結果</h3>
-<table class="table">
-  <!--ユーザーを検索した結果-->
-  <% if @users.present? %>
-    <% @users.each do |user| %>
-      <tr>
-        <td>
-          <%= link_to user_path(user) do %>
-            <%= image_tag user.get_profile_image(100,100) %>
-            <%= user.name %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  <!--bucketlistを検索した結果-->
-  <% elsif @bucket_lists.present? %>
-    <% @bucket_lists.each do |bucket_list| %>
-      <tr>
-        <!--遊びたいボドゲ情報-->
-        <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-        <!--いいねボタン-->
-        <td id="favorite_buttons_<%= bucket_list.id %>" class="text-center" width="10%">
-          <%= render 'public/favorites/favorite', bucket_list: bucket_list %></br>
-        </td>
-        <!--ユーザー情報-->
-        <td class="text-center" width="15%">
-          <%= link_to user_path(bucket_list.user, class: "text-center") do %>
-            <%= image_tag bucket_list.user.get_profile_image(100,100) %></br>
-            <%= bucket_list.user.name %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  <% end %>
-</table>
+<div class="col-6 offset-md-3">
+  <div>
+    <h4>ユーザーか、ユーザーの投稿を検索</h4>
+    <p>※一覧したい場合、無記入で検索</p>
+    <%= render "admin/searches/search_form" %>
+  </div>
+  <div class="ps-2">
+    <h3>検索結果</h3>
+    <table class="table">
+      <!--ユーザーを検索した結果-->
+      <% if @users.present? %>
+        <tr>
+          <th>ユーザー</th>
+          <th>アカウント状態</th>
+        </tr>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= link_to admin_user_path(user) do %>
+                <%= image_tag user.get_profile_image(100,100) %>
+                <%= user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= user.is_deleted ? '凍結中' : '有効' %>
+            </td>
+          </tr>
+        <% end %>
+      <!--bucketlistを検索した結果-->
+      <% elsif @bucket_lists.present? %>
+        <% @bucket_lists.each do |bucket_list| %>
+          <tr>
+            <!--遊びたいボドゲ情報-->
+            <td width="10%">
+              <img src="<%= bucket_list.image %>" width="100"/>
+            </td>
+            <td width="80%">
+              <!--BGデータ-->
+              <div class="pb-2">
+                <span class="pe-2"><%= bucket_list.bucket_title %></span>
+                <i class="fa-solid fa-users pe-1"></i><%= bucket_list.minplayer %>-<%= bucket_list.maxplayer %>
+                <i class="fa-regular fa-clock pe-1"></i><%= bucket_list.playingtime %>
+              </div>
+              <!--メモ-->
+              <div class="mb-4">
+                <%= safe_join(bucket_list.memo.split("\n"),tag(:br)) %></br>
+              </div>
+              <div>
+                <!--タグ-->
+                <i class="fas fa-tag"></i><%= bucket_list.tags.map(&:name).join(', ') %></br>
+                <!--ユーザーリンク-->
+                <%= link_to admin_user_path(bucket_list.user), class: "pe-5 text-decoration-none" do %>
+                  <i class="fa-solid fa-circle-user"></i><%= bucket_list.user.name %>
+                <% end %>
+              </div>
+            </td>
+            <td>
+              <%= link_to admin_user_path(bucket_list, word: params[:word]), method: :delete do  %>
+                <button class="btn btn-outline-danger ms-2">削除</button>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

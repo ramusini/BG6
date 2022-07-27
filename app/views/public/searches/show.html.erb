@@ -1,36 +1,39 @@
-<table class="table-bordered">
-  <tr>
-    <td>
-      <img src="<%= @result[0][:image][0] %>" width="100"/>
-    </td>
-    <td>
-      id: <%= @result[0][:id] %></br>
-      タイトル: <%= @result[0][:title] %></br>
-      最小人数: <%= @result[0][:minplayer] %></br>
-      最大人数: <%= @result[0][:maxplayer] %></br>
-      時間: <%= @result[0][:playingtime] %></br>
-    </td>
-  </tr>
-</table>
-<div class="create_record">
-  <%= form_with url: boardgames_path, local: true, method: :post do |f| %>
-    <%= f.hidden_field :bg_id, :value => @result[0][:id] %>
-    <%= f.hidden_field :image, :value => @result[0][:image][0] %>
-    <%= f.hidden_field :played_title, :value => @result[0][:title] %>
-    <%= f.hidden_field :maxplayer, :value => @result[0][:maxplayer] %>
-    <%= f.hidden_field :minplayer, :value => @result[0][:minplayer] %>
-    <%= f.hidden_field :playingtime, :value => @result[0][:playingtime] %>
-    <%= f.submit "記録を作成", class: "btn btn-primary" %>
-  <% end %>
-</div>
-<div class="add_bucket_list">
-  <%= form_with url: new_bucket_list_path, local: true, method: :get do |f| %>
-    <%= f.hidden_field :bg_id, :value => @result[0][:id] %>
-    <%= f.hidden_field :image, :value => @result[0][:image][0] %>
-    <%= f.hidden_field :title, :value => @result[0][:title] %>
-    <%= f.hidden_field :maxplayer, :value => @result[0][:maxplayer] %>
-    <%= f.hidden_field :minplayer, :value => @result[0][:minplayer] %>
-    <%= f.hidden_field :playingtime, :value => @result[0][:playingtime] %>
-    <%= f.submit "遊びたいリストに追加", class: "btn btn-primary" %>
-  <% end %>
+<div class="offset-md-3 col-6">
+  <table class="table-bordered">
+    <tr>
+      <td>
+        <img src="<%= @result[0][:image][0] %>" width="200"/>
+      </td>
+      <td class="text-center" width="50%">
+        BGG ID: <%= @result[0][:id] %></br>
+        <%= @result[0][:title] %></br>
+        <i class="fa-solid fa-users pe-1"></i><%= @result[0][:minplayer] %>-<%= @result[0][:maxplayer] %></br>
+        <i class="fa-regular fa-clock pe-1"></i><%= @result[0][:playingtime] %></br>
+      </td>
+      <td class="text-center" wirth="30%">
+        <div class="create_record m-3">
+          <%= form_with url: boardgames_path, local: true, method: :post do |f| %>
+            <%= f.hidden_field :bg_id, :value => @result[0][:id] %>
+            <%= f.hidden_field :image, :value => @result[0][:image][0] %>
+            <%= f.hidden_field :played_title, :value => @result[0][:title] %>
+            <%= f.hidden_field :maxplayer, :value => @result[0][:maxplayer] %>
+            <%= f.hidden_field :minplayer, :value => @result[0][:minplayer] %>
+            <%= f.hidden_field :playingtime, :value => @result[0][:playingtime] %>
+            <%= f.submit "遊んだ", class: "btn btn-outline-primary" %>
+          <% end %>
+        </div>
+        <div class="add_bucket_list col-4 m-3">
+          <%= form_with url: new_bucket_list_path, local: true, method: :get do |f| %>
+            <%= f.hidden_field :bg_id, :value => @result[0][:id] %>
+            <%= f.hidden_field :image, :value => @result[0][:image][0] %>
+            <%= f.hidden_field :title, :value => @result[0][:title] %>
+            <%= f.hidden_field :maxplayer, :value => @result[0][:maxplayer] %>
+            <%= f.hidden_field :minplayer, :value => @result[0][:minplayer] %>
+            <%= f.hidden_field :playingtime, :value => @result[0][:playingtime] %>
+            <%= f.submit "遊びたい", class: "btn btn-outline-primary" %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>

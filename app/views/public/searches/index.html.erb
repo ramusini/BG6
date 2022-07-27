@@ -1,4 +1,4 @@
-<div class='col-md-6 offset-md-2'>
+<div class='col-md-5 offset-md-3'>
   <h3>User's want to play</h3>
   <% @bucket_lists.each do |bucket_list| %>
     <table class="table">
@@ -7,13 +7,12 @@
           <!--ボドゲ情報&ユーザーリンク-->
           <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
           <!--いいね&コメント-->
-
         </tr>
       <% end %>
     </table>
   <% end %>
 </div>
-<div class="col-2">
+<div class="col-4">
   <h3>タグ検索</h3>
   <%= form_tag({controller:"searches",action:"index"}, method: :get) do %>
     <% Tag.all.each do |t| %>

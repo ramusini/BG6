@@ -3,9 +3,12 @@
 
 
   <% if current_page?(searches_path) %>
-    <%= link_to user_path(bucket_list.user), class: "pe-5 text-decoration-none" do %>
-      <i class="fa-solid fa-circle-user"></i><%= bucket_list.user.name %>
-    <% end %>
+    <span class="pe-5">
+      <%= link_to user_path(bucket_list.user), class: "text-decoration-none" do %>
+        <i class="fa-solid fa-circle-user"></i><%= bucket_list.user.name %>
+      <% end %>
+      <i class="fa-solid fa-location-dot"></i><%= bucket_list.user.prefecture %>
+    </span>
   <% end %>
 
   <!--いいね機能-->

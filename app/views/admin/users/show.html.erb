@@ -1,0 +1,96 @@
+<div class='col-md-4'>
+  <h3>
+    User
+    <% if @user.is_deleted %>
+      <%= link_to admin_user_path(@user, is_deleted: false), method: :put do %>
+        <button class="btn btn-outline-info ms-2">解凍</button>
+      <% end %>
+    <% else %>
+      <%= link_to admin_user_path(@user, is_deleted: true), method: :put do %>
+        <button class="btn btn-outline-danger ms-2">凍結</button>
+      <% end %>
+    <% end %>
+  </h3>
+  <%= render 'public/users/user_info', user: @user %>
+</div>
+
+<div class='col-md-8'>
+  <h3>User's Boardgames</h3>
+  <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          Played Games
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+          <table class="table-bordered col-12">
+            <% @played_bgs.each do |bg| %>
+              <tr>
+                <td>
+                  <%= link_to boardgame_path(bg) do %>
+                    <img src="<%= bg.image %>" width="100"/>
+                  <% end %>
+                </td>
+                <td class="text-center" width="18%">
+                  <%= link_to boardgame_path(bg) do %>
+                    <%= bg.played_title %></br>
+                    <%= bg.minplayer %>-<%= bg.maxplayer %>人</br>
+                    <%= bg.playingtime %>min</br>
+                  <% end %>
+                </td>
+                <td class="text-center" width="60%">
+                  遊んだ回数:<%= bg.records.count %> 遊んだ人：
+                  </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+           Bucket List
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
+          <table class="table col-md-12">
+            <!--bucket_listに登録してるゲームを一覧表示-->
+            <% @bucket_lists.each do |bucket_list| %>
+              <tr>
+                <!--遊びたいボドゲ情報-->
+                <td width="10%">
+                  <img src="<%= bucket_list.image %>" width="100"/>
+                </td>
+                <td width="80%">
+                  <!--BGデータ-->
+                  <div class="pb-2">
+                    <span class="pe-2"><%= bucket_list.bucket_title %></span>
+                    <i class="fa-solid fa-users pe-1"></i><%= bucket_list.minplayer %>-<%= bucket_list.maxplayer %>
+                    <i class="fa-regular fa-clock pe-1"></i><%= bucket_list.playingtime %>
+                  </div>
+                  <!--メモ-->
+                  <div class="mb-4">
+                    <%= safe_join(bucket_list.memo.split("\n"),tag(:br)) %></br>
+                  </div>
+                  <div>
+                    <!--タグ-->
+                    <i class="fas fa-tag"></i><%= bucket_list.tags.map(&:name).join(', ') %></br>
+                  </div>
+                </td>
+                <td>
+                  <%= link_to admin_user_path(bucket_list, user: bucket_list.user), method: :delete do  %>
+                    <button class="btn btn-outline-danger ms-2">削除</button>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
