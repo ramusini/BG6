@@ -2,14 +2,12 @@
 <% if bucket_list.user != current_user%>
 
 
-  <% if current_page?(searches_path) %>
-    <span class="pe-5">
-      <%= link_to user_path(bucket_list.user), class: "text-decoration-none" do %>
-        <i class="fa-solid fa-circle-user"></i><%= bucket_list.user.name %>
-      <% end %>
-      <i class="fa-solid fa-location-dot"></i><%= bucket_list.user.prefecture %>
-    </span>
-  <% end %>
+  <span class="pe-3">
+    <%= link_to user_path(bucket_list.user), class: "text-decoration-none" do %>
+      <i class="fa-solid fa-circle-user"></i><%= bucket_list.user.name %>
+    <% end %>
+    <i class="fa-solid fa-location-dot ps-2"></i><%= bucket_list.user.prefecture %>
+  </span>
 
   <!--いいね機能-->
   <% if bucket_list.favorited?(current_user) %>

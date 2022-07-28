@@ -6,45 +6,45 @@
       <%= render "public/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= f.label :name %><br />
-        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control" %>
+        <%= f.label :name, "ユーザー名(12文字まで)" %><br />
+        <%= f.text_field :name, autofocus: true, class: "form-control", :placeholder => "例：ゲイリー・ガイギャックス" %>
       </div>
 
       <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+        <%= f.label :email, "メールアドレス" %><br />
+        <%= f.email_field :email, autocomplete: "email", class: "form-control", :placeholder => "例：email@email.com" %>
       </div>
 
       <div class="field">
-        <%= f.label :postal_code %><br />
-        <%= f.text_field :postal_code, class: "form-control" %>
+        <%= f.label :postal_code, "郵便番号" %><br />
+        <%= f.text_field :postal_code, class: "form-control", :placeholder => "例：1231234" %>
       </div>
 
       <div class="field">
-        <%= f.label :prefecture %><br />
-        <%= f.text_field :prefecture, class: "form-control" %>
+        <%= f.label :prefecture, "都道府県" %><br />
+        <%= f.text_field :prefecture, class: "form-control", :placeholder => "例：東京都" %>
       </div>
 
       <div class="field">
-        <%= f.label :city %><br />
-        <%= f.text_field :city, class: "form-control" %>
+        <%= f.label :city, "市区町村" %><br />
+        <%= f.text_field :city, class: "form-control", :placeholder => "例：千代田区" %>
       </div>
 
       <div class="field">
-        <%= f.label :age %><br />
-        <%= f.text_field :age, class: "form-control" %>
+        <%= f.label :age, "年齢" %><br />
+        <%= f.text_field :age, class: "form-control",:placeholder => "例：100" %>
       </div>
 
       <div class="field">
-        <%= f.label :password %>
+        <%= f.label :password, "パスワード" %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <em>(<%= @minimum_password_length %>文字以上)</em>
         <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation %><br />
+        <%= f.label :password_confirmation, "パスワード確認" %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
       </div>
 
@@ -52,7 +52,6 @@
         <%= f.submit "Sign up", class: "btn btn-outline-success" %>
       </div>
     <% end %>
-
-    <%= render "public/shared/links" %>
   </div>
+
 </div>

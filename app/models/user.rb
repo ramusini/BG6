@@ -44,4 +44,9 @@ class User < ApplicationRecord
     end
   end
 
+  validates :postal_code, presence: true
+  validates :name, uniqueness: true, length: { maximum: 12 }
+  validates :prefecture, presence: true, inclusion: { in: %w("都" "道" "府" "県") }
+  validates :city, presence: true
+  validates :age, presence: true
 end

@@ -11,8 +11,10 @@ class Admin::SearchesController < ApplicationController
   end
 
   def require_permission
-    admin_signed_in?
-    redirect_to new_admin_session_path
+    if admin_signed_in?
+    else
+      redirect_to new_admin_session_path
+    end
   end
 
 end

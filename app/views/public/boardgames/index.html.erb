@@ -2,41 +2,45 @@
   <!--検索フォーム-->
   <div>
     <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
-      <div class="ms-3">
-        <string class="pe-2">Search for?</string>
-        <%= f.radio_button :address_num, 1 , checked: true %><%= f.label :address_num_1, "Boardgame", class: "p-2" %>
-        <%= f.radio_button :address_num, 2%><%= f.label :address_num_2, "User", class: "p-2" %>
-        <%= f.radio_button :address_num, 3 %><%= f.label :address_num_3, "User's [want to play]", class: "p-2" %>
-      </div>
+      <h3>『遊んだ』『遊びたい』ボードゲームを検索</h3>
       <div class="col-9">
-        <%= f.text_field :word, class: "form-control" %>
+        <%= f.text_field :word, class: "form-control", :placeholder => "例：カタン" %>
       </div>
-      <div class="col-auto ps-1">
-        <%= f.submit "検索", class: "btn btn-outline-success" %>
+      <div class="col-auto ps-0">
+        <%= f.submit "検索", class: "btn btn-outline-success px-4" %>
       </div>
     <% end %>
   </div>
-</div>
-<div class="col-6 offset-md-3">
-<table class="table">
-  <tr>
-    <th>BGG ID</th>
-    <th>タイトル</th>
-    <th></th>
-  </tr>
-  <% @results.each do |result| %>
-    <tr>
-      <td><%= result[:id] %></td>
-      <td><%= result[:value] %></td>
-      <td>
-        <div class="select_bg">
-          <%= form_with url: search_path(result[:id]), local: true, method: :get do |f| %>
-            <%= f.hidden_field :bg_id, :value => result[:id] %>
-            <%= f.submit "詳細情報", class: "btn btn-outline-primary" %>
-          <% end %>
-        </div>
-      </td>
-    </tr>
+  <!--検索結果-->
+  <% if @results.present? %>
+    <h6 class="ps-2 pt-3">"<%= @search_word %>"の検索結果：<%= @results.count %>件</h6>
+    <table class="table">
+      <tr>
+        <th>BGG ID</th>
+        <th>タイトル</th>
+        <th></th>
+      </tr>
+      <% @results.each do |result| %>
+        <tr>
+          <td><%= result[:id] %></td>
+          <td><%= result[:value] %></td>
+          <td>
+            <div class="select_bg">
+              <%= form_with url: search_path(result[:id]), local: true, method: :get do |f| %>
+                <%= f.hidden_field :bg_id, :value => result[:id] %>
+                <%= f.submit "詳細情報", class: "btn btn-outline-primary" %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h6 class="ps-2 pt-3">検索結果：0件</h6>
+    <p>
+      日本語の登録がない、またはボードゲームが存在しません。</br>
+      アルファベットで検索するか、検索ワードを変更してください。
+    </p>
   <% end %>
-</table>
 </div>
+
