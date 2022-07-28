@@ -29,7 +29,7 @@
                 </td>
                 <td class="text-center" width="60%">
                   <%= link_to boardgame_path(bg) do %>
-                    <% records = Record.where(board_game_id: bg.bg_id) %>
+                    <% records = Record.where(board_game_id: bg.bg_id, user_id: current_user.id) %>
                     遊んだ回数:<%= records.count %>
                   <% end %>
                   </td>
