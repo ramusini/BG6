@@ -1,5 +1,15 @@
 <div class='col-md-5 offset-md-3'>
-  <h3>User's want to play</h3>
+  <h3>ユーザーの投稿</h3>
+  <% if @bucket_title_word.present? %>
+    <h6 class="ps-2 pt-3">"<%= @bucket_title_word %>"の検索結果：<%= @bucket_lists.count %>件</h6>
+  <% elsif @prefecture_word.present? %>
+    <h6 class="ps-2 pt-3">"<%= @prefecture_word %>"の検索結果<%= @bucket_lists.count %>件</h6>
+  <% elsif @tag_word.present?%>
+    <h6 class="ps-2 pt-3">
+    </h6>
+  <% else %>
+    <h6 class="ps-2 pt-3">全<%= @bucket_lists.count %>件</h6>
+  <% end %>
   <% @bucket_lists.each do |bucket_list| %>
     <table class="table">
       <% if bucket_list.user_id != current_user.id %>
@@ -13,11 +23,38 @@
   <% end %>
 </div>
 <div class="col-4">
-  <h3>タグ検索</h3>
-  <%= form_tag({controller:"searches",action:"index"}, method: :get) do %>
-    <% Tag.all.each do |t| %>
-        <%= check_box :tag_ids, t.name %><%= t.name %></br>
+  <div class="col-5">
+    <h3>タイトル検索</h3>
+    <%= form_with url: searches_path, method: :get, local: true do |f| %>
+      <%= f.label :bucket_title, "タイトル(英語)で検索" %>
+      <div class="input-group mb-3">
+        <%= f.text_field :bucket_title, class: "form-control", :placeholder => "例：catan" %>
+        <span>
+          <%= f.submit "検索", class: "input-group-text btn-success" %>
+        </span>
+      </div>
     <% end %>
-    <%= submit_tag '検索', class: "mt-2" %>
-<% end %>
+  </div>
+  <div class="col-5 mt-3">
+    <h3>地域検索</h3>
+    <%= form_with url: searches_path, method: :get, local: true do |f| %>
+      <%= f.label :bucket_title, "都道府県で検索" %>
+      <div class="input-group mb-3">
+        <%= f.text_field :prefecture, class: "form-control", :placeholder => "例：東京都" %>
+        <span>
+          <%= f.submit "検索", class: "input-group-text btn-success" %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-5 mt-3">
+    <h3>タグ検索</h3>
+    <%= form_tag({controller:"searches",action:"index"}, method: :get) do %>
+      <% Tag.all.each do |t| %>
+          <%= check_box :tag_ids, t.name %><%= t.name %></br>
+      <% end %>
+      <%= submit_tag '検索', class: "mt-2 btn btn-outline-success py-1" %>
+    <% end %>
+  </div>
 </div>
+

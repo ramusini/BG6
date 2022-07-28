@@ -33,8 +33,8 @@
       <h3>記録</h3>
       <table class="table">
         <tr>
-          <th>遊んだ日</th>
-          <th>プレイ時間</th>
+          <th>日付</th>
+          <th>時間</th>
           <th>対戦者</th>
         </tr>
         <% @records.each do |record| %>
@@ -43,7 +43,7 @@
             <td width="25%"><%= record.playing_time %> 分</td>
             <td width="50%">
               <% record.scores.all.each do |score| %>
-                <%= score.player.player_name %><%="　"%>
+                <%= score.player.player_name %>:<%= score.score %><%="　"%>
               <% end %>
             </td>
           </tr>

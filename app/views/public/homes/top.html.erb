@@ -1,32 +1,36 @@
-
-  <% if user_signed_in? %>
-    <div class="col-6 offset-md-3">
-      <!--検索フォーム-->
-      <div>
-        <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
-          <div class="ms-3">
-            <string class="pe-2">Search for?</string>
-            <%= f.radio_button :address_num, 1 , checked: true %><%= f.label :address_num_1, "Boardgame", class: "p-2" %>
-            <%= f.radio_button :address_num, 2%><%= f.label :address_num_2, "User", class: "p-2" %>
-            <%= f.radio_button :address_num, 3 %><%= f.label :address_num_3, "User's [want to play]", class: "p-2" %>
-          </div>
+<% if user_signed_in? %>
+  <div class="my-5"></div>
+  <div class="my-4"></div>
+  <div class="col-6 offset-md-3">
+    <!--検索フォーム-->
+    <div>
+      <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
+        <h3>『遊んだ』『遊びたい』ボードゲームを検索</h3>
+        <div class="input-group">
           <div class="col-9">
-            <%= f.text_field :word, class: "form-control" %>
+            <%= f.text_field :word, class: "form-control", :placeholder => "例：カタン" %>
           </div>
-          <div class="col-auto ps-1">
-            <%= f.submit "検索", class: "btn btn-outline-success" %>
-          </div>
-        <% end %>
-      </div>
+          <span class="col-auto ps-0">
+            <%= f.submit "検索", class: "input-group-text btn-success px-4" %>
+          </span>
+        </div>
+      <% end %>
     </div>
-  <% else %>
-    <div class="col-12">
-      <h4 class="text-center">ようこそ、BG録へ！</h4>
-      <p class="text-center">
-        ボードゲームを遊んだ記録をつけたり、</br>
-        ボードゲームを遊ぶ相手を探しましょう！
-      </p>
-    </div>
-  <% end %>
+  </div>
+  <div class="my-5"></div>
+  <div class="my-5"></div>
+<% else %>
+  <div class="col-12">
+    <div class="py-4"></div>
+    <div class="my-5"></div>
+    <h3 class="text-center">ようこそ、BG録へ！</h3>
+    <p class="text-center pt-3">
+      ボードゲームを遊んだ記録をつけたり、</br>
+      ボードゲームを遊ぶ相手を探しましょう！
+    </p>
+    <div class="my-5 pt-3"></div>
+    <div class="py-5"></div>
+  </div>
+<% end %>
 
 

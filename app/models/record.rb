@@ -1,5 +1,6 @@
 class Record < ApplicationRecord
   belongs_to :user
+  belongs_to :board_games
   has_many :scores
   has_many :players, through: :scores
 

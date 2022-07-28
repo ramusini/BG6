@@ -3,14 +3,14 @@
     <tr>
       <td class="td-fixed-select">
         <%= f.label :player_id, "プレイヤー" %>
-        <%= f.collection_select :player_id, Player.where(user_id: current_user.id), :id, :player_name, {prompt: '---'}, {class: 'select-box'} %>
+        <%= f.collection_select :player_id, Player.where(user_id: current_user.id), :id, :player_name, {prompt: '---'}, {class: 'select-box form-control'} %>
       </td>
       <td class="td-fixed-score">
-        <%= f.label :player_date, "スコア" %>
-        <%= f.text_field :score %>
+        <%= f.label :player_date, "スコア", class: "ms-2" %>
+        <%= f.text_field :score, class: "form-control ms-2"%>
       </td>
       <td>
-        <%= link_to_remove_association "削除", f %>
+        <%= link_to_remove_association "削除", f, class: "btn btn-outline-danger py-1 mt-4 ms-3" %>
       </td>
     </tr>
   </table>

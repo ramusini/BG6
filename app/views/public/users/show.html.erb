@@ -23,18 +23,19 @@
                   <% end %>
                 </td>
                 <td class="text-center" width="18%">
-                  <%= link_to boardgame_path(bg) do %>
-                    <%= bg.played_title %></br>
-                    <%= bg.minplayer %>-<%= bg.maxplayer %>人</br>
-                    <%= bg.playingtime %>min</br>
-                  <% end %>
+                  <%= bg.played_title %></br>
+                  <%= bg.minplayer %>-<%= bg.maxplayer %>人</br>
+                  <%= bg.playingtime %>min</br>
                 </td>
                 <td class="text-center" width="60%">
-                  遊んだ回数:<%= bg.records.count %> 遊んだ人：
+                  <%= link_to boardgame_path(bg) do %>
+                    <% records = Record.where(board_game_id: bg.bg_id) %>
+                    遊んだ回数:<%= records.count %>
+                  <% end %>
                   </td>
                 <td class="text-center" width="15%">
                   <%= link_to new_record_path(bg_id: bg.bg_id) do %>
-                    <i class="fa-solid fa-circle-plus"></i>
+                    <i class="fa-solid fa-file-circle-plus"></i>
                   <% end %>
                 </td>
               </tr>
@@ -71,22 +72,11 @@
       </h2>
       <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
         <div class="accordion-body">
-          <table class="table-bordered col-md-12">
+          <table class="table col-md-12">
             <% @favorite_bucket_lists.each do |f_bucket_list|%>
               <tr>
                 <!--遊びたいボドゲ情報-->
                 <%= render "public/bucket_lists/bucket_data", data: f_bucket_list %>
-                <!--いいねボタン-->
-                <td id="favorite_buttons_<%= f_bucket_list.id %>" class="text-center" width="15%">
-                  <%= render 'public/favorites/favorite', bucket_list: f_bucket_list %></br>
-                </td>
-                <!--ユーザー情報-->
-                <td class="text-center">
-                  <%= link_to user_path(f_bucket_list.user, class: "text-center") do %>
-                    <%= image_tag f_bucket_list.user.get_profile_image(100,100) %></br>
-                    <%= f_bucket_list.user.name %>
-                  <% end %>
-                </td>
               </tr>
             <% end %>
           </table>
