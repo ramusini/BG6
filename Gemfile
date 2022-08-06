@@ -67,3 +67,8 @@ gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
 end
+
+# ruby3以降で必要になったgem
+gem 'net-smtp'
+gem 'net-imap'
+gem 'net-pop'
