@@ -1,5 +1,6 @@
-class Public::PlayersController < ApplicationController
+# frozen_string_literal: true
 
+class Public::PlayersController < ApplicationController
   def index
     @players = Player.where(user_id: current_user.id)
   end
@@ -20,9 +21,7 @@ class Public::PlayersController < ApplicationController
   end
 
   private
-
-  def player_params
-    params.require(:player).permit(:player_name).merge(user_id: current_user.id)
-  end
-
+    def player_params
+      params.require(:player).permit(:player_name).merge(user_id: current_user.id)
+    end
 end

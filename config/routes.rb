@@ -1,22 +1,23 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   # ユーザー用
   # URL /users/sign_in ...
-  devise_for :users,skip: [:passwords], controllers: {
+  devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
-    sessions: 'public/sessions'
+    sessions: "public/sessions"
   }
 
   # 管理者
   # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+  devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
 
   namespace :admin do
     resources :searches do
       collection do
-       get "search"
+        get "search"
       end
     end
     resources :users
@@ -28,9 +29,9 @@ Rails.application.routes.draw do
     resources :boardgames
     resources :records
     resources :searches do
-     collection do
-       get "search"
-     end
+      collection do
+        get "search"
+      end
     end
     resources :players
     resources :bucket_lists do
@@ -42,7 +43,6 @@ Rails.application.routes.draw do
 
   # ゲスト
   devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
   end
-
 end

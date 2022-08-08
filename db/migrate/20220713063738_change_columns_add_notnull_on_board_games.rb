@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeColumnsAddNotnullOnBoardGames < ActiveRecord::Migration[6.1]
   def change
     change_column :board_games, :bg_id, :integer, null: false

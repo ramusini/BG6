@@ -1,5 +1,6 @@
-class User < ApplicationRecord
+# frozen_string_literal: true
 
+class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -15,10 +16,10 @@ class User < ApplicationRecord
   # プロフィール画像
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/default-image.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'default-mage.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join("app/assets/images/default-image.jpg")
+      profile_image.attach(io: File.open(file_path), filename: "default-mage.jpg", content_type: "image/jpeg")
     end
-      profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   # 検索
@@ -26,19 +27,19 @@ class User < ApplicationRecord
     if word.blank?
       User.all
     else
-      User.where("name LIKE?","%#{word}%")
+      User.where("name LIKE?", "%#{word}%")
     end
   end
 
   # ゲストユーザー
   def self.guest
-    find_or_create_by!(name: 'guestuser' ,
-                      email: 'guests@example.com',
-                      postal_code: '1231234',
-                      prefecture: 'ボドゲ県',
-                      city: 'ミープル区',
-                      age: '0〜99',
-                      memo: '主に重ゲーを遊んでいます！') do |user|
+    find_or_create_by!(name: "guestuser",
+                      email: "guests@example.com",
+                      postal_code: "1231234",
+                      prefecture: "ボドゲ県",
+                      city: "ミープル区",
+                      age: "0〜99",
+                      memo: "主に重ゲーを遊んでいます！") do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
     end

@@ -1,5 +1,6 @@
-class Public::BoardgamesController < ApplicationController
+# frozen_string_literal: true
 
+class Public::BoardgamesController < ApplicationController
   def index
     @played_bgs = BoardGame.where(user_id: current_user.id)
   end
@@ -26,15 +27,13 @@ class Public::BoardgamesController < ApplicationController
   end
 
   private
-
-  def boardgame_params
-    params.permit(:bg_id,
-                  :image,
-                  :played_title,
-                  :minplayer,
-                  :maxplayer,
-                  :playingtime
-                  ).merge(user_id: current_user.id)
-  end
-
+    def boardgame_params
+      params.permit(:bg_id,
+                    :image,
+                    :played_title,
+                    :minplayer,
+                    :maxplayer,
+                    :playingtime
+                   ).merge(user_id: current_user.id)
+    end
 end
