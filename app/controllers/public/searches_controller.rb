@@ -22,6 +22,7 @@ class Public::SearchesController < ApplicationController
 
   def index
     @bucket_lists = BucketList.all
+    @bucket_list = BucketList.where(user_id: current_user.id)
 
     if params[:tag_ids] # タグ検索
       @bucket_lists = []
@@ -37,7 +38,7 @@ class Public::SearchesController < ApplicationController
       @bucket_lists = BucketList.where(user_id: user_ids)
     elsif params[:bucket_title] # タイトル検索
       @bucket_title_word = params[:bucket_title]
-      # カラムのデータを大文字にして取得し、検索ワードを大文字にして検索。
+      # looksメソッドにて、カラムのデータを大文字にして取得し、検索ワードを大文字に変換して検索。
       @bucket_lists = BucketList.looks(params[:bucket_title])
     end
   end

@@ -31,14 +31,4 @@
         </td>
       </tr>
     <% end %>
-    <tr>
-      <td>
-        <!--タグを全件表示-->
-        <span><遊びたいゲームタグ数></span></br>
-        <% @tag_list.each do |list|%>
-          <%=list.name %>
-          <%="(#{list.bucket_lists.count})" %></br>
-        <% end %>
-      </td>
-    </tr>
   </table>

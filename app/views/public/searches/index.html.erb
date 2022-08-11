@@ -3,12 +3,11 @@
   <% if @bucket_title_word.present? %>
     <h6 class="ps-2 pt-3">"<%= @bucket_title_word %>"の検索結果：<%= @bucket_lists.count %>件</h6>
   <% elsif @prefecture_word.present? %>
-    <h6 class="ps-2 pt-3">"<%= @prefecture_word %>"の検索結果<%= @bucket_lists.count %>件</h6>
+    <h6 class="ps-2 pt-3">"<%= @prefecture_word %>"の検索結果：<%= @bucket_lists.count%>件</h6>
   <% elsif @tag_word.present?%>
-    <h6 class="ps-2 pt-3">
-    </h6>
+    <h6 class="ps-2 pt-3">検索結果：<%= @bucket_lists.count %>件</h6>
   <% else %>
-    <h6 class="ps-2 pt-3">全<%= @bucket_lists.count %>件</h6>
+    <h6 class="ps-2 pt-3">全<%= @bucket_lists.count - @bucket_list.count %>件</h6>
   <% end %>
   <% @bucket_lists.each do |bucket_list| %>
     <table class="table">
@@ -24,7 +23,6 @@
 </div>
 <div class="col-4">
   <div class="col-5">
-    <h3>タイトル検索</h3>
     <%= form_with url: searches_path, method: :get, local: true do |f| %>
       <%= f.label :bucket_title, "タイトル(英語)で検索" %>
       <div class="input-group mb-3">
@@ -36,7 +34,6 @@
     <% end %>
   </div>
   <div class="col-5 mt-3">
-    <h3>地域検索</h3>
     <%= form_with url: searches_path, method: :get, local: true do |f| %>
       <%= f.label :bucket_title, "都道府県で検索" %>
       <div class="input-group mb-3">
@@ -48,12 +45,12 @@
     <% end %>
   </div>
   <div class="col-5 mt-3">
-    <h3>タグ検索</h3>
+    タグ(複数可)で検索
     <%= form_tag({controller:"searches",action:"index"}, method: :get) do %>
       <% Tag.all.each do |t| %>
           <%= check_box :tag_ids, t.name %><%= t.name %></br>
       <% end %>
-      <%= submit_tag '検索', class: "mt-2 btn btn-outline-success py-1" %>
+      <%= submit_tag '検索', class: "mt-2 btn btn-success py-1" %>
     <% end %>
   </div>
 </div>
