@@ -3,21 +3,19 @@
   <% if @bucket_title_word.present? %>
     <h6 class="ps-2 pt-3">"<%= @bucket_title_word %>"の検索結果：<%= @bucket_lists.count %>件</h6>
   <% elsif @prefecture_word.present? %>
-    <h6 class="ps-2 pt-3">"<%= @prefecture_word %>"の検索結果：<%= @bucket_lists.count%>件</h6>
+    <h6 class="ps-2 pt-3">"<%= @prefecture_word %>"の検索結果：<%= @bucket_lists.count %>件</h6>
   <% elsif @tag_word.present?%>
     <h6 class="ps-2 pt-3">検索結果：<%= @bucket_lists.count %>件</h6>
   <% else %>
-    <h6 class="ps-2 pt-3">全<%= @bucket_lists.count - @bucket_list.count %>件</h6>
+    <h6 class="ps-2 pt-3">全<%= @bucket_lists.count %>件</h6>
   <% end %>
   <% @bucket_lists.each do |bucket_list| %>
     <table class="table">
-      <% if bucket_list.user_id != current_user.id %>
-        <tr>
-          <!--ボドゲ情報&ユーザーリンク-->
-          <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
-          <!--いいね&コメント-->
-        </tr>
-      <% end %>
+      <tr>
+        <!--ボドゲ情報&ユーザーリンク-->
+        <%= render "public/bucket_lists/bucket_data", data: bucket_list %>
+        <!--いいね&コメント-->
+      </tr>
     </table>
   <% end %>
 </div>

@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <div class="my-5"></div>
   <div class="my-4"></div>
-  <div class="col-6 offset-md-3">
+  <div class="col-6 offset-md-3 text-center">
     <!--検索フォーム-->
     <div>
       <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>

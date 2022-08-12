@@ -15,12 +15,13 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
+    resources :tags
+    resources :users
     resources :searches do
       collection do
         get "search"
       end
     end
-    resources :users
   end
 
   # ユーザー
@@ -28,12 +29,12 @@ Rails.application.routes.draw do
     resources :users
     resources :boardgames
     resources :records
+    resources :players
     resources :searches do
       collection do
         get "search"
       end
     end
-    resources :players
     resources :bucket_lists do
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
