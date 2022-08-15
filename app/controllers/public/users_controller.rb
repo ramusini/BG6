@@ -13,7 +13,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @played_bgs = @user.board_games
     @bucket_lists = @user.bucket_lists
-    @tag_list = Tag.all
+    @tags = Tag.all
     # いいねリスト表示用
     favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)
     @favorite_bucket_lists = BucketList.find(favorites)

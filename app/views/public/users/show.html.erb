@@ -50,6 +50,12 @@
       </h2>
       <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
         <div class="accordion-body">
+          <div class="mb-3">
+            <% @tags.each do |tag|%>
+              <%= tag.name %>
+              <%="(#{tag.bucket_lists.where(user_id: params[:id]).count})" %>,
+            <% end %>
+          </div>
           <table class="table col-md-12">
             <!--bucket_listに登録してるゲームを一覧表示-->
             <% @bucket_lists.each do |bucket_list| %>
