@@ -23,6 +23,15 @@
           <ul class="navbar-nav ms-auto">
             <% if user_signed_in? %>
               <li class="nav-item">
+                <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
+                  <div class="input-group">
+                    <div>
+                      <%= f.text_field :word, class: "form-control", :placeholder => "ボードゲームを探す" %>
+                    </div>
+                  </div>
+                <% end %>
+              </li>
+              <li class="nav-item ms-2">
                 <%= link_to user_path(current_user) do %>
                   <%= image_tag current_user.get_profile_image(40,40) %>
                 <% end %>
@@ -33,15 +42,6 @@
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link active' %></li>
-              <li class="nav-item">
-                <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
-                  <div class="input-group">
-                    <div>
-                      <%= f.text_field :word, class: "form-control", :placeholder => "検索：ボードゲーム" %>
-                    </div>
-                  </div>
-                <% end %>
-              </li>
             <% elsif admin_signed_in? %>
               <li class="nav-item"><%= link_to "タグ管理", new_admin_tag_path, method: :get, class: 'nav-link active' %></li>
               <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link active' %></li>

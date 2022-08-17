@@ -1,6 +1,6 @@
 <div class="col-4 offset-md-4 rounded border bg-white my-5">
   <h2 class="m-3 text-center">User log in</h2>
-
+  <%= flash[:notice] %>
   <div class="m-5 mt-2">
     <%= form_with model: @user, url: user_session_path do |f| %>
       <div class="field">
