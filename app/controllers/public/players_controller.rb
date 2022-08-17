@@ -10,7 +10,6 @@ class Public::PlayersController < ApplicationController
 
   def new
     @new_player = Player.new
-    @link_from = params[:link_from]
   end
 
   def create
