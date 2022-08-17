@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBucketListTagRelations < ActiveRecord::Migration[6.1]
   def change
     create_table :bucket_list_tag_relations do |t|

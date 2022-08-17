@@ -1,5 +1,6 @@
-class Public::RecordsController < ApplicationController
+# frozen_string_literal: true
 
+class Public::RecordsController < ApplicationController
   def new
     # 一括保存。親モデル:Record。子モデル:score
     @new_record = Record.new
@@ -13,6 +14,7 @@ class Public::RecordsController < ApplicationController
   def create
     # 今回の遊んだ記録を保存
     @new_record = Record.new(record_params)
+    # byebug
     if @new_record.save
       redirect_to user_path(current_user)
     else
@@ -27,14 +29,12 @@ class Public::RecordsController < ApplicationController
   end
 
   private
-
-  def record_params
-    params.require(:record).permit(:date,
-                                  :playing_time,
-                                  :memo,
-                                  :board_game_id,
-                                  scores_attributes: [:id, :record_id, :player_id, :score, :_destroy]# cocoon用
-                                  ).merge(user_id: current_user.id)
-  end
-
+    def record_params
+      params.require(:record).permit(:date,
+                                    :playing_time,
+                                    :memo,
+                                    :board_game_id,
+                                    scores_attributes: [:id, :record_id, :player_id, :score, :_destroy] # cocoon用
+      ).merge(user_id: current_user.id)
+    end
 end

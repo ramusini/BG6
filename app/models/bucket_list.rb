@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BucketList < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
@@ -5,10 +7,10 @@ class BucketList < ApplicationRecord
   has_many :bucket_list_tag_relations, dependent: :destroy
   has_many :tags, through: :bucket_list_tag_relations, dependent: :destroy
 
-  #一致するレコードが存在しない＝「まだいいねしていない→createアクションへ」
-  #一致するレコードが存在する　＝「すでにいいね済み→destroyアクションへ」
+  # 一致するレコードが存在しない＝「まだいいねしていない→createアクションへ」
+  # 一致するレコードが存在する　＝「すでにいいね済み→destroyアクションへ」
   def favorited?(user)
-   favorites.where(user_id: user.id).exists?
+    favorites.where(user_id: user.id).exists?
   end
 
   # 検索
@@ -16,7 +18,7 @@ class BucketList < ApplicationRecord
     if word.blank?
       BucketList.all
     else
-      BucketList.where("bucket_title LIKE?","%#{word}%")
+      BucketList.where("bucket_title LIKE?", "%#{word}%")
     end
   end
 

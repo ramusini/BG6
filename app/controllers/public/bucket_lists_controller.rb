@@ -1,5 +1,6 @@
-class Public::BucketListsController < ApplicationController
+# frozen_string_literal: true
 
+class Public::BucketListsController < ApplicationController
   def new
     @new_bucket_list = BucketList.new
 
@@ -14,7 +15,7 @@ class Public::BucketListsController < ApplicationController
   def create
     @new_bucket_list = BucketList.new(bucket_list_params)
     @new_bucket_list.save
-     #繰り返し、選択したタグを保存
+    # 繰り返し、選択したタグを保存
     params[:bucket_list][:tag_ids].each do |tag|
       new = BucketListTagRelation.new
       new.tag_id = tag
@@ -34,7 +35,6 @@ class Public::BucketListsController < ApplicationController
   def show
     @bucket_list = BucketList.find(params[:id])
     @new_comment = Comment.new
-
   end
 
   def destroy
@@ -60,20 +60,18 @@ class Public::BucketListsController < ApplicationController
 
 
   private
+    def bucket_list_params
+      params.require(:bucket_list).permit(:bg_id,
+                                          :image,
+                                          :bucket_title,
+                                          :minplayer,
+                                          :maxplayer,
+                                          :playingtime,
+                                          :memo
+                                         ).merge(user_id: current_user.id)
+    end
 
-  def bucket_list_params
-    params.require(:bucket_list).permit(:bg_id,
-                                        :image,
-                                        :bucket_title,
-                                        :minplayer,
-                                        :maxplayer,
-                                        :playingtime,
-                                        :memo
-                                        ).merge(user_id: current_user.id)
-  end
-
-  def patch_bucket_list_params
-    params.require(:bucket_list).permit(:memo)
-  end
-
+    def patch_bucket_list_params
+      params.require(:bucket_list).permit(:memo)
+    end
 end

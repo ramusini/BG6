@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_guest_user, only: [:edit]
@@ -11,7 +13,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @played_bgs = @user.board_games
     @bucket_lists = @user.bucket_lists
-    @tag_list = Tag.all
+    @tags = Tag.all
     # いいねリスト表示用
     favorites = Favorite.where(user_id: @user.id).pluck(:bucket_list_id)
     @favorite_bucket_lists = BucketList.find(favorites)
@@ -38,16 +40,14 @@ class Public::UsersController < ApplicationController
   end
 
   private
-
-  def user_params
-    params.require(:user).permit(:name, :profile_image, :memo)
-  end
-
-  def ensure_guest_user
-    @user = User.find(params[:id])
-    if @user.name == "guestuser"
-      redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+    def user_params
+      params.require(:user).permit(:name, :profile_image, :memo)
     end
-  end
 
+    def ensure_guest_user
+      @user = User.find(params[:id])
+      if @user.name == "guestuser"
+        redirect_to user_path(current_user), notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+      end
+    end
 end
