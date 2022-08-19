@@ -25,9 +25,7 @@ class Admin::TagsController < ApplicationController
   end
 
   private
-
-  def params_tag
-    params.permit(:name)
-  end
-
+    def params_tag
+      params.permit(:name)
+    end
 end
