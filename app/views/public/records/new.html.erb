@@ -1,4 +1,4 @@
-<div class="offset-md-3 col-5">
+<div class="offset-md-3 col-md-5">
   <h3>新規記録作成</h3>
 
   <table class="table-bordered m-3">
@@ -20,15 +20,15 @@
           <tr>
             <td>
               <div>
-                <%= link_to_add_association "対戦者追加", f, :scores,
+                <%= link_to_add_association "追加", f, :scores,
                     class: "add_fields btn btn-outline-success",
                     data: {
                       association_insertion_node: '#detail-association-insertion-point',
                       association_insertion_method: 'after'
                       }
                     %>
-                <%= link_to new_player_path(link_from: "new_record"), class: "ps-5" do %>
-                 <i class="fa-solid fa-user-plus">プレイヤーを作成</i>
+                <%= link_to new_player_path, class: "ps-5" do %>
+                  <i class="fa-solid fa-user-plus">プレイヤーを作成</i>
                 <% end %>
               </div>
               <!--フォームが追加されるところ-->
@@ -75,3 +75,4 @@
       <% end %>
   </div>
 </div>
+<div class="col-md-4"></div>
