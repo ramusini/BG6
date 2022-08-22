@@ -21,16 +21,20 @@ describe '新規タグ作成画面(new_admin_tag_path)のテスト' do
       expect(page).to have_link '削除'
     end
   end
-  context '作成処理のテスト' do
-    it '作成後のリダイレクト先は正しいか' do
-      edit_link = find_all('a')[3]
-      edit_link.click
-      expect(current_path).to eq('/admin/tags/new')
-    end
-  end
   context 'タグ削除のテスト' do
     it 'タグ削除' do
       expect{ tag.destroy }.to change{ Tag.count }.by(-1)
     end
+  end
+end
+
+describe '作成処理のテスト' do
+  before do
+    visit new_admin_tag_path
+  end
+  it '作成後のリダイレクト先は正しいか' do
+    fill_in 'name', with: Faker::Lorem.characters(number:5)
+    click_button '作成'
+    expect(page).to have_current_path new_admin_tag_path
   end
 end
