@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 describe 'Tagモデルのテスト' do
+  subject { tag.valid? }
+  
   it 'タグ名が保存されるか' do
     expect(FactoryBot.build(:tag)).to be_valid
   end
-  
+
   describe 'アソシエーションのテスト' do
     context 'bucket_list_tag_relationsモデルとの関係' do
       it '1:Nとなっている' do
