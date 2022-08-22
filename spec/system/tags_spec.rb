@@ -2,52 +2,35 @@
 
 require 'rails_helper'
 
-describe：'投稿のテスト'
-  let!(:tag)：{ create(:tag, name:'hoge'}
-  describe：トップ画面(top_path)のテスト
-    before：トップ画面への遷移
-    context：表示の確認
-      it：トップ画面(top_path)に「ここはTopページです」が表示されているか
-        テストコード
-      it：top_pathが"/top"であるか
-        テストコード
-
-  describe ：投稿画面のテスト
-    before ：投稿画面への遷移
-    context：表示の確認 
-      it ：new_list_pathが"/lists/new"であるか'
-        テストコード
-      it：投稿ボタンが表示されているか'
-        テストコード
-    context：投稿処理のテスト
-      it：投稿後のリダイレクト先は正しいか
-        テストコード
-
-  describe：一覧画面のテスト
-    before：一覧画面への遷移
-    context ：一覧の表示とリンクの確認
-      it：一覧表示画面に投稿されたもの表示されているか
-        テストコード
-
-  describe：詳細画面のテスト
-    before：詳細画面への遷移
-    context：表示のテスト
-      it：削除リンクが存在しているか
-        テストコード
-      it：編集リンクが存在しているか
-    context：リンクの遷移先の確認
-      it：編集の遷移先は編集画面か
-        テストコード
-    context：list削除のテスト
-      it：listの削除
-        テストコード 
-        
-  describe：編集画面のテスト
-    before：編集画面への遷移
-    context：表示の確認
-      it：編集前のタイトルと本文がフォームに表示(セット)されている
-        テストコード
-      it：保存ボタンが表示される
-    context：更新処理に関するテスト
-      it：更新後のリダイレクト先は正しいか
-        テストコード
+describe '新規タグ作成画面(new_admin_tag_path)のテスト' do
+  let!(:tag) { create(:tag, name:'hoge') }
+  before do
+    visit new_admin_tag_path
+  end
+  context '表示の確認' do
+    it 'new_admin_tag_pathが"/admin/tags/new"であるか' do
+      expect(current_path).to eq('/admin/tags/new')
+    end
+    it '作成ボタンがあるか' do
+      expect(page).to have_button '作成'
+    end
+    it 'タグ一覧があるか' do
+      expect(page).to have_content tag.name
+    end
+    it 'タグ削除リンクがあるか' do
+      expect(page).to have_link '削除'
+    end
+  end
+  context '作成処理のテスト' do
+    it '作成後のリダイレクト先は正しいか' do
+      edit_link = find_all('a')[3]
+      edit_link.click
+      expect(current_path).to eq('/admin/tags/new')
+    end
+  end
+  context 'タグ削除のテスト' do
+    it 'タグ削除' do
+      expect{ tag.destroy }.to change{ Tag.count }.by(-1)
+    end
+  end
+end
