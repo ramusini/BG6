@@ -26,7 +26,7 @@
                 <%= form_with url: search_searches_path, local: true, method: :get, class: "row" do |f| %>
                   <div class="input-group">
                     <div>
-                      <%= f.text_field :word, class: "form-control", :placeholder => "ボードゲームを探す" %>
+                      <%= f.text_field :word, class: "form-control",name: 'header_form', id: 'header_form', :placeholder => "ボードゲームを探す" %>
                     </div>
                   </div>
                 <% end %>
