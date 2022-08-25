@@ -32,9 +32,6 @@ describe 'ヘッダーのテスト' do
       fill_in 'user_password', with: @user.password
       click_button 'Log in'
     end
-    it 'ログイン後、ボードゲーム検索画面にいるか' do
-      expect(page).to have_button '検索'
-    end
     it '左上にサイト名があり、リンク先が正しいか' do
       click_link 'BG録 BoardGameRecorder'
       expect(page).to have_current_path root_path
@@ -42,12 +39,6 @@ describe 'ヘッダーのテスト' do
     it '左上に「相手を探す」があり、リンク先が正しいか' do
       click_link '相手を探す'
       expect(page).to have_current_path searches_path
-    end
-    it '右上に「ボードゲーム検索フォーム」があり、検索後のリンク先が正しいか' do
-      all('#word')[1].set("カタン")
-      click_button '検索'
-      expect(page.current_path).to eq search_searches_path
-      expect(URI.decode_www_form(URI(page.current_url).query).to_h).to eq({"word"=>"カタン", "commit"=>"検索"})
     end
     it '右上に「ユーザー名」があり、リンク先が正しいか' do
       click_link @user.name
@@ -77,6 +68,45 @@ describe 'ヘッダーのテスト' do
     it '右上に「ログアウト」があり、リンク先が正しいか' do
       click_link 'ログアウト'
       expect(page).to have_current_path new_admin_session_path
+    end
+  end
+end
+
+describe 'ホーム画面のテスト' do
+  before do
+    visit root_path
+  end
+  context '未ログイン状態での表示の確認' do
+    it '「ようこそ、BG録へ！」があるか' do
+      expect(page).to have_content 'ようこそ、BG録へ！'
+    end
+  end
+  context 'ログイン状態での表示の確認' do
+    before do
+      @user = FactoryBot.create(:user)
+      visit new_user_session_path
+      fill_in 'user_email', with: @user.email
+      fill_in 'user_password', with: @user.password
+      click_button 'Log in'
+    end
+    it '検索フォームがあり、正しく機能しているか' do
+      # all('#word')[1].set("カタン")←ヘッダーとホームの検索フォーム両方のname属性が同じだった時の
+      fill_in 'word', with: 'カタン'
+      click_button '検索'
+      expect(page.current_path).to eq search_searches_path
+      expect(URI.decode_www_form(URI(page.current_url).query).to_h).to eq({"word"=>"カタン", "commit"=>"検索"})
+    end
+  end
+  context 'adminログイン状態での表示の確認' do
+    before do
+      @admin = FactoryBot.create(:admin)
+      visit new_admin_session_path
+      fill_in 'admin_email', with: @admin.email
+      fill_in 'admin_password', with: @admin.password
+      click_button 'Log in'
+    end
+    it '「検索結果」があるか' do
+      expect(page).to have_content '検索結果'
     end
   end
 end
