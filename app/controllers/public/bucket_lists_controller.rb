@@ -40,7 +40,6 @@ class Public::BucketListsController < ApplicationController
   def destroy
     bucket_list = BucketList.find(params[:id])
     bucket_list.destroy
-
     @bucket_lists = BucketList.where(user_id: current_user.id)
     redirect_to user_path(current_user)
   end

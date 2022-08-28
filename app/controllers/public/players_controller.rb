@@ -19,6 +19,13 @@ class Public::PlayersController < ApplicationController
     render :index
   end
 
+  def destroy
+    players = Player.find(params[:id])
+    players.destroy
+    @players = Player.where(user_id: current_user.id)
+    render :index
+  end
+
   private
     def player_params
       params.require(:player).permit(:player_name).merge(user_id: current_user.id)
