@@ -14,9 +14,14 @@ class Public::PlayersController < ApplicationController
 
   def create
     @new_player = Player.new(player_params)
-    @new_player.save
-    @players = Player.where(user_id: current_user.id)
-    render :index
+    if @new_player.save
+      @players = Player.where(user_id: current_user.id)
+      render :index
+    else
+      @new_player = Player.new
+      flash[:notice] = "12文字以内で名前を入力してください"
+      render :new
+    end
   end
 
   def destroy
