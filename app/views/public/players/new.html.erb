@@ -1,4 +1,5 @@
 <h3>プレイヤー登録</h3>
+<%= flash[:notice] %>
 <%= form_with(model: @new_player, local: true) do |f| %>
   <div class="form-group">
     <%= f.label :player_name, "プレイヤー名" %>
