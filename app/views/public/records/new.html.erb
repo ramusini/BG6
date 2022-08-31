@@ -17,6 +17,7 @@
   <div class="m-3">
       <%= form_with(model: @new_record, class: "record-post-main", local: true) do |f| %>
         <table class="table">
+          <p><%= flash[:notice] %></p>
           <tr>
             <td>
               <div>
