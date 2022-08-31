@@ -14,10 +14,15 @@ class Public::RecordsController < ApplicationController
   def create
     # 今回の遊んだ記録を保存
     @new_record = Record.new(record_params)
-    # byebug
+    @bg_id = @new_record[:board_game_id]
     if @new_record.save
       redirect_to user_path(current_user)
     else
+      @new_record = Record.new
+      @new_record.scores.build
+      @bg_data = BoardGame.where(bg_id: @bg_id)
+      @players = Player.where(user_id: current_user.id)
+      flash[:notice] = "スコアに数字を入力してください"
       render :new
     end
   end
