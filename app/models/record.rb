@@ -2,6 +2,7 @@
 
 class Record < ApplicationRecord
   belongs_to :user
+  belongs_to :board_game
   has_many :scores
   has_many :players, through: :scores
 
