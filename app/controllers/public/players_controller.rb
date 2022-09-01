@@ -25,8 +25,13 @@ class Public::PlayersController < ApplicationController
   end
 
   def destroy
-    players = Player.find(params[:id])
-    players.destroy
+    player = Player.find(params[:id])
+    in_use_player = Score.where(player_id: params[:id])
+    if in_use_player.blank?
+      player.destroy
+    else
+      flash[:natice] = "利用中のプレイヤー名は削除不可"
+    end
     @players = Player.where(user_id: current_user.id)
     render :index
   end
