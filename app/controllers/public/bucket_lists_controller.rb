@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Public::BucketListsController < ApplicationController
+  before_action :ensure_login_user, only: [:edit, :update]
+  before_action :ensure_login_user_bucket_list, only: [:destroy]
+
   def new
     @new_bucket_list = BucketList.new
 
@@ -73,4 +76,21 @@ class Public::BucketListsController < ApplicationController
     def patch_bucket_list_params
       params.require(:bucket_list).permit(:memo)
     end
+
+    def ensure_login_user
+      user = User.find(params[:id])
+      if user.id != current_user.id
+        flash[:notice] = "他のユーザーの編集はできません。"
+        redirect_to user_path(current_user)
+      end
+    end
+
+    def ensure_login_user_bucket_list
+      bucket_list = BucketList.find(params[:id])
+      if bucket_list.user_id != current_user.id
+        flash[:notice] = "他のユーザーの投稿の削除はできません。"
+        redirect_to user_path(current_user)
+      end
+    end
+
 end
