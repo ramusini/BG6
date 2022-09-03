@@ -20,12 +20,6 @@ class Public::BoardgamesController < ApplicationController
     redirect_to new_record_path(bg_id: params[:bg_id])
   end
 
-  def edit
-  end
-
-  def delete
-  end
-
   private
     def boardgame_params
       params.permit(:bg_id,
