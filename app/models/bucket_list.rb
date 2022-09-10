@@ -30,4 +30,5 @@ class BucketList < ApplicationRecord
   # end
 
   accepts_nested_attributes_for :bucket_list_tag_relations
+  validates :memo, presence: true, length: { maximum: 140 }
 end
