@@ -8,4 +8,6 @@ class Record < ApplicationRecord
 
   # score(子モデル)を保存するためのフォーム
   accepts_nested_attributes_for :scores, allow_destroy: true
+
+  validates :memo, length: { maximum: 400 }
 end
